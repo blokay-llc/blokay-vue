@@ -1,0 +1,257 @@
+.table {
+  @apply z-0 relative justify-between overflow-auto w-full overflow-x-scroll  mb-2;
+}
+.table table {
+  @apply w-full text-neutral-800 dark:text-neutral-500;
+}
+
+.table table thead tr th {
+  @apply sticky top-0 bg-neutral-100 dark:bg-neutral-950  px-3 text-xs text-neutral-500 dark:text-neutral-300 uppercase h-8 select-none;
+}
+.table table tr {
+  @apply dark:hover:text-neutral-300;
+}
+.table table thead tr th:first-child {
+  @apply rounded-l-xl;
+}
+.table table thead tr th:last-child {
+  @apply rounded-r-xl;
+}
+
+.table table tbody {
+  @apply divide-y dark:divide-neutral-800;
+}
+.table table tbody tr td {
+  @apply p-3 text-sm;
+}
+
+.table table tbody tr:first-child {
+  @apply rounded-t-xl;
+}
+.table table tbody tr:last-child {
+  @apply rounded-b-xl;
+}
+
+.table-show-all {
+  @apply underline font-bold text-neutral-600 text-xs cursor-pointer;
+}
+
+.table table tbody tr td,
+.table table tbody tr th {
+  @apply font-light;
+}
+
+.table table tbody tr td a {
+  @apply text-sky-600;
+}
+
+.table table tbody button {
+  @apply bg-neutral-200 hover:bg-neutral-300 text-neutral-600 py-1 px-3 text-sm rounded-lg dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:text-neutral-200;
+}
+
+.table-footer {
+  @apply flex justify-between items-center select-none dark:text-neutral-200 text-neutral-600 pb-3;
+}
+.table-page {
+  @apply flex ml-auto gap-2 items-center text-sm;
+}
+.table-th-icon {
+  @apply h-4 w-4 dark:fill-neutral-200 fill-neutral-900;
+}
+.table-th {
+  @apply flex items-center gap-2;
+}
+
+/* Modal */
+.modalx-enter {
+  opacity: 0;
+  transform: scale(0.9);
+}
+.modalx-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 300ms, transform 300ms;
+}
+.modalx-exit {
+  opacity: 1;
+}
+.modalx-exit-active {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 300ms, transform 300ms;
+}
+
+.modal-back-enter {
+  opacity: 0;
+}
+.modal-back-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 300ms, transform 300ms;
+}
+.modal-back-exit {
+  opacity: 1;
+}
+.modal-back-exit-active {
+  opacity: 0;
+  transition: opacity 300ms, transform 300ms;
+}
+
+/* Input */
+.app-input {
+  @apply pb-1 pt-4 px-5 border-neutral-200  outline-none  rounded-lg border w-full text-gray-700 font-medium appearance-none	 focus:bg-gray-100 dark:focus:bg-black bg-white hover:bg-neutral-300 dark:focus:border-neutral-200 transition duration-100 dark:border-neutral-800 dark:text-neutral-200 dark:bg-transparent dark:hover:bg-black placeholder-neutral-200;
+}
+.app-input:disabled {
+  @apply bg-neutral-200 text-neutral-400 border-neutral-200 dark:border-black dark:bg-black dark:text-neutral-700;
+}
+.app-input::-webkit-input-placeholder,
+.app-input::placeholder {
+  @apply text-transparent;
+}
+.app-input::-webkit-calendar-picker-indicator {
+  @apply dark:invert;
+}
+
+.app-input.error {
+  @apply border-red-500;
+}
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.input-error {
+  @apply text-left text-red-500 text-sm;
+}
+/* Icon Button */
+
+.icon-btn {
+  @apply fill-white dark:fill-black;
+}
+.icon-btn.secondary {
+  @apply fill-neutral-600;
+}
+
+.back-button,
+.action-button {
+  @apply size-8 p-1 cursor-pointer border-2 border-neutral-100 hover:border-neutral-300 rounded-full bg-white shrink-0 dark:border-black dark:bg-black;
+}
+
+.back-button .icon,
+.action-button .icon {
+  @apply fill-neutral-800 dark:fill-neutral-100 w-full h-full;
+}
+.table-no-results {
+  @apply py-10 text-2xl text-neutral-700 px-10 flex justify-center w-full h-full items-center;
+}
+
+/* Loader */
+
+.lds-ring {
+  display: flex;
+  position: relative;
+  width: 64px;
+  height: 64px;
+}
+
+.lds-ring div {
+  box-sizing: border-box;
+  display: block;
+  position: absolute;
+  width: 51px;
+  height: 51px;
+  margin: 6px;
+  border: 6px solid #a8a29e;
+  border-radius: 50%;
+  animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  border-color: #a8a29e transparent transparent transparent;
+}
+.lds-ring div:nth-child(1) {
+  animation-delay: -0.45s;
+}
+.lds-ring div:nth-child(2) {
+  animation-delay: -0.3s;
+}
+.lds-ring div:nth-child(3) {
+  animation-delay: -0.15s;
+}
+
+.lds-ring.sm {
+  width: 1rem;
+  height: 1rem;
+}
+
+.lds-ring.sm div {
+  margin: 0;
+  width: 0.8rem;
+  height: 0.8rem;
+  border-width: 0.2rem;
+}
+
+@keyframes lds-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Blocks */
+
+.block-box {
+  @apply h-full w-full  relative min-h-20 rounded-2xl pt-0 min-w-20;
+}
+
+.exception {
+  @apply w-full h-full flex justify-center items-center z-10 bg-white/50 dark:bg-black/50 backdrop-blur-sm min-h-32 text-center text-neutral-600 text-lg;
+}
+
+.block-loader {
+  @apply absolute top-0 left-0 w-full h-full flex justify-center items-center z-10 bg-white/50 dark:bg-black/50 backdrop-blur-sm rounded-2xl;
+}
+
+.block-response {
+  @apply h-full p-5 w-full;
+}
+.block-response.response-table {
+  @apply dark:bg-neutral-950 bg-neutral-100;
+}
+
+.block-form {
+  @apply py-6 lg:max-w-96 lg:min-w-96 min-w-[90%] bg-white border-neutral-300 dark:border-white/10 border dark:bg-neutral-900 rounded-xl px-5 pb-5 pt-5;
+}
+.block-form-title {
+  @apply text-sm md:text-base font-medium text-neutral-600 dark:text-neutral-300;
+}
+.block-form-header {
+  @apply flex items-center gap-3;
+}
+.block-form-footer {
+  @apply mt-5 md:mt-5 border-t-2  border-gray-200 dark:border-neutral-800 pt-3 text-center flex gap-3 md:gap-5  justify-end;
+}
+
+.block-form-fields {
+  @apply grid grid-cols-2 w-full gap-3 mt-5;
+}
+
+/* Design System */
+
+.btn {
+  @apply appearance-none border-2 rounded-lg inline-block focus:outline-none shadow-sm;
+}
+.btn-primary {
+  @apply border-black bg-black dark:text-black dark:bg-white dark:hover:bg-neutral-200 hover:bg-black text-white;
+}
+.btn-secondary {
+  @apply text-neutral-900  border-neutral-200 dark:border-transparent border-2 bg-neutral-100 dark:text-neutral-300 dark:bg-neutral-950/70 dark:hover:bg-neutral-900;
+}
+.btn-third {
+  @apply text-neutral-900 border-transparent border-2 bg-neutral-400 dark:text-neutral-300 dark:bg-neutral-800 dark:hover:bg-neutral-700;
+}
+.btn-neutral {
+  @apply text-gray-500 bg-neutral-200 hover:bg-neutral-300 border-transparent;
+}
+.btn-disabled {
+  @apply bg-neutral-100 border-neutral-100 dark:bg-neutral-700 dark:border-neutral-700 dark:text-neutral-400 text-gray-500 cursor-not-allowed;
+}
