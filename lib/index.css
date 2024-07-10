@@ -261,3 +261,15 @@ input[type="number"]::-webkit-outer-spin-button {
 .bl-btn-disabled {
   @apply bl-bg-neutral-100 bl-border-neutral-100 dark:bl-bg-neutral-700 dark:bl-border-neutral-700 dark:bl-text-neutral-400 bl-text-gray-500 bl-cursor-not-allowed;
 }
+.bl-size-lg {
+  @apply bl-py-3 bl-px-5 bl-text-sm;
+}
+.bl-size-md {
+  @apply bl-py-1.5 bl-px-2 bl-text-sm;
+}
+.bl-size-sm {
+  @apply bl-py-1.5 bl-px-2 bl-text-xs md:bl-text-sm;
+}
+.bl-size-xs {
+  @apply bl-py-1 bl-px-3 bl-text-xs;
+}
