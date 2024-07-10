@@ -14,7 +14,12 @@
         :key="index"
         :class="`${row.grid == 6 ? 'bl-col-span-1' : 'bl-col-span-2'} `"
       >
-        <BlockField :row="row" :form="form" :errors="errors" :setForm="setForm" />
+        <BlockField
+          :row="row"
+          :form="form"
+          :errors="errors"
+          :setForm="setForm"
+        />
       </div>
     </div>
 
@@ -29,11 +34,11 @@
   </div>
 </template>
 <script>
-import BlockField from './BlockFormField.vue';
-import Icon from '../DS/Icon.vue';
-import Button from '../DS/Form/Button.vue';
+import BlockField from "./BlockFormField.vue";
+import Icon from "../DS/Icon.vue";
+import Button from "../DS/Form/Button.vue";
 export default {
-  name: 'BlockForm',
+  name: "BlockForm",
   props: {
     block: {
       type: Object,
@@ -63,7 +68,7 @@ export default {
   },
   methods: {
     execBlock() {
-      this.$emit('execBlock', this.block);
+      this.$emit("execBlock", this.block);
     },
   },
 };

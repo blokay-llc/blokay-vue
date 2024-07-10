@@ -1,6 +1,6 @@
 <template>
   <div class="select-none w-full" :class="{ [mb]: true, disabled }">
-    <component
+    <input
       ref="input"
       :is="componentName"
       :id="id"
@@ -13,11 +13,7 @@
       :stateId="stateId"
       @stateId="setStateId"
       @onChange="handleChange"
-    >
-      <template v-for="(_, name) in $slots" v-slot:[name]="slotData">
-        <slot :name="name" v-bind="slotData" />
-      </template>
-    </component>
+    />
 
     <div
       v-if="error"
@@ -29,20 +25,7 @@
 </template>
 <script>
 // import InputFile from "@/components/DS/Form/Input/Types/File.vue";
-// import InputSelect from "@/components/DS/Form/Input/Types/Select.vue";
-// import InputSelectcustom from "@/components/DS/Form/Input/Types/Selectcustom.vue";
-// import InputCountry from "@/components/DS/Form/Input/Types/Country.vue";
-// import InputMoney from "@/components/DS/Form/Input/Types/Money.vue";
-// import InputPassword from "@/components/DS/Form/Input/Types/Password.vue";
-// import InputCellphone from "@/components/DS/Form/Input/Types/Cellphone.vue";
-// import InputTextarea from "@/components/DS/Form/Input/Types/Textarea.vue";
-// import InputToggle from "@/components/DS/Form/Input/Types/Toggle.vue";
-// import InputCheckbox from "@/components/DS/Form/Input/Types/Checkbox.vue";
-// import InputOtp from "@/components/DS/Form/Input/Types/Otp.vue";
-// import InputCity from "@/components/DS/Form/Input/Types/City.vue";
-// import InputDane from "@/components/DS/Form/Input/Types/Dane.vue";
-// import InputDefault from "@/components/DS/Form/Input/Types/Default.vue";
-// import InputBarcode from "@/components/DS/Form/Input/Types/Barcode.vue";
+// import Input from "@/components/DS/Form/Input/Types/File.vue";
 
 export default {
   name: "app-input",

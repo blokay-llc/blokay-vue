@@ -1,7 +1,7 @@
 <template>
   <Input
     :type="row.type"
-    :error="errors[row.name]"
+    :error="errors[row.name] || ''"
     v-model="form[row.name]"
     :label="row.label"
     v-bind="$props"
@@ -10,10 +10,10 @@
   </Input>
 </template>
 <script>
-import Input from '../DS/Form/Index.vue';
+import Input from "../DS/Form/Index.vue";
 
 export default {
-  name: 'BlockField',
+  name: "BlockField",
   props: {
     row: {
       type: Object,
