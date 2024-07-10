@@ -1,7 +1,12 @@
 <template>
   <div
     class="box-input"
-    :class="{ active: !!activeInput, withvalue: !!modelValue, [size]: true, withlabel: !!label }"
+    :class="{
+      active: !!activeInput,
+      withvalue: !!modelValue,
+      [size]: true,
+      withlabel: !!label,
+    }"
     @click="clickInput"
   >
     <label class="label-style" :for="id" v-if="label">
@@ -18,10 +23,7 @@
   </div>
 </template>
 <script>
-import BaseInput from './Base.vue';
-
 export default {
-  name: 'input-textarea',
-  extends: BaseInput,
+  name: "input-textarea",
 };
 </script>

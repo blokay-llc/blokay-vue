@@ -67,14 +67,14 @@
 </template>
 
 <script>
-import TableCell from './TableCell.vue';
-import TableFooter from './TableFooter.vue';
-import TableHeaderCell from './TableHeaderCell.vue';
-import TableHeader from './TableHeader.vue';
-import TableFooterRow from './TableFooterRow.vue';
+import TableCell from "./TableCell.vue";
+import TableFooter from "./TableFooter.vue";
+import TableHeaderCell from "./TableHeaderCell.vue";
+import TableHeader from "./TableHeader.vue";
+import TableFooterRow from "./TableFooterRow.vue";
 
 const sortTypes = (a, b) => {
-  if (typeof a == 'string' && typeof b == 'string') {
+  if (typeof a == "string" && typeof b == "string") {
     a = a.toLowerCase();
     b = b.toLowerCase();
     if (a > b) {
@@ -90,7 +90,7 @@ const sortTypes = (a, b) => {
 const handleSearch = (toSearch) => {
   return (item) => {
     for (let j = 0; j < item.length; j++) {
-      const str = ('' + item[j]).toLowerCase();
+      const str = ("" + item[j]).toLowerCase();
       if (str.includes(toSearch)) {
         return true;
       }
@@ -104,17 +104,17 @@ const handleFilters = (filters) => {
     for (let j = 0; j < filters.length; j++) {
       const filter = filters[j];
       const val = item[filter.col];
-      if (filter.cond == '=' && item[filter.col] != filter.value) {
+      if (filter.cond == "=" && item[filter.col] != filter.value) {
         return false;
-      } else if (filter.cond == '!=' && val == filter.value) {
+      } else if (filter.cond == "!=" && val == filter.value) {
         return false;
-      } else if (filter.cond == '>' && val < filter.value) {
+      } else if (filter.cond == ">" && val < filter.value) {
         return false;
-      } else if (filter.cond == '<' && val > filter.value) {
+      } else if (filter.cond == "<" && val > filter.value) {
         return false;
-      } else if (filter.cond == 'contains' && !val.includes(filter.value)) {
+      } else if (filter.cond == "contains" && !val.includes(filter.value)) {
         return false;
-      } else if (filter.cond == 'not_contains' && val.includes(filter.value)) {
+      } else if (filter.cond == "not_contains" && val.includes(filter.value)) {
         return false;
       }
     }
@@ -124,9 +124,11 @@ const handleFilters = (filters) => {
 
 const handleSort = (criteria, valCriteria) => {
   return (a, b) => {
-    const val1 = typeof a[criteria] == 'object' ? a[criteria]?.text : a[criteria];
-    const val2 = typeof b[criteria] == 'object' ? b[criteria]?.text : b[criteria];
-    if (valCriteria == 'DESC') {
+    const val1 =
+      typeof a[criteria] == "object" ? a[criteria]?.text : a[criteria];
+    const val2 =
+      typeof b[criteria] == "object" ? b[criteria]?.text : b[criteria];
+    if (valCriteria == "DESC") {
       return sortTypes(val2, val1);
     }
     return sortTypes(val1, val2);
@@ -134,7 +136,7 @@ const handleSort = (criteria, valCriteria) => {
 };
 
 export default {
-  name: 'Table',
+  name: "Table",
   props: {
     data: {
       type: Object,
@@ -152,7 +154,7 @@ export default {
     },
     blockName: {
       type: String,
-      default: '',
+      default: "",
     },
     autoExecuted: {
       type: Boolean,
@@ -188,7 +190,7 @@ export default {
         content = content.sort(handleSort(criteria, this.sort[criteria]));
       }
 
-      const toSearch = this.filters.search.toLowerCase();
+      const toSearch = ("" + this.filters.search).toLowerCase();
       if (toSearch) {
         content = content.filter(handleSearch(toSearch));
       }
@@ -235,12 +237,12 @@ export default {
     return {
       sort: null,
       filters: {
-        search: '',
+        search: "",
         fields: [],
       },
       page: 1,
       PER_PAGE: 10,
-      textAll: '',
+      textAll: "",
     };
   },
   methods: {

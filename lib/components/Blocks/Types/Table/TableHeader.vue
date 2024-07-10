@@ -2,16 +2,26 @@
   <div>
     <div class="bl-mb-5 bl-justify-end bl-flex bl-items-center bl-gap-3">
       <div class="bl-flex bl-gap-3 bl-items-center bl-mr-auto">
-        <div v-if="onBack && !autoExecuted" class="bl-back-button" :onClick="onBack">
+        <div
+          v-if="onBack && !autoExecuted"
+          class="bl-back-button"
+          @click="onBack"
+        >
           <Icon icon="left" class="bl-icon" />
         </div>
 
-        <div v-if="showTitle" class="bl-text-neutral-800 dark:bl-text-neutral-200">
+        <div
+          v-if="showTitle"
+          class="bl-text-neutral-800 dark:bl-text-neutral-200"
+        >
           {{ blockName }}
         </div>
       </div>
 
-      <div v-if="showSearchBar && data?.data?.length > 10" class="bl-ml-auto lg:bl-w-1/3">
+      <div
+        v-if="showSearchBar && data?.data?.length > 10"
+        class="bl-ml-auto lg:bl-w-1/3"
+      >
         <Input
           type="text"
           v-model="search"
@@ -44,7 +54,9 @@
         size="xs"
         icon="filter"
         v-if="canFilter && data.data.length > 0"
-        :text="`Filter${filters.fields.length > 0 ? ' (' + filters.fields.length + ')' : ''}`"
+        :text="`Filter${
+          filters.fields.length > 0 ? ' (' + filters.fields.length + ')' : ''
+        }`"
         :onClick="() => clickFilter()"
       />
 
@@ -59,7 +71,10 @@
     </div>
 
     <Modal size="md" position="center" ref="modalFilter">
-      <div class="bl-flex bl-flex-col bl-gap-3 bl-mb-5" v-if="filters.fields.length">
+      <div
+        class="bl-flex bl-flex-col bl-gap-3 bl-mb-5"
+        v-if="filters.fields.length"
+      >
         <div
           v-for="(item, index) in fielters.fields"
           class="bl-grid bl-grid-cols-12 bl-items-center bl-gap-2"
@@ -168,20 +183,20 @@
   </div>
 </template>
 <script>
-import Button from '../../../DS/Form/Button.vue';
-import Input from '../../../DS/Form/Index.vue';
-import Icon from '../../../DS/Icon.vue';
-import Modal from '../../../DS/Modal.vue';
+import Button from "../../../DS/Form/Button.vue";
+import Input from "../../../DS/Form/Input.vue";
+import Icon from "../../../DS/Icon.vue";
+import Modal from "../../../DS/Modal.vue";
 
 const download = (file, filename) => {
-  const blob = new Blob([file], { type: 'text/csv;charset=utf-8;' });
+  const blob = new Blob([file], { type: "text/csv;charset=utf-8;" });
 
-  const link = document.createElement('a');
+  const link = document.createElement("a");
   if (link.download !== undefined) {
     const url = URL.createObjectURL(blob);
-    link.setAttribute('href', url);
-    link.setAttribute('download', filename);
-    link.style.visibility = 'hidden';
+    link.setAttribute("href", url);
+    link.setAttribute("download", filename);
+    link.style.visibility = "hidden";
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -189,7 +204,7 @@ const download = (file, filename) => {
 };
 
 export default {
-  name: 'TableHeader',
+  name: "TableHeader",
   props: {
     onBack: {
       type: Function,
@@ -201,7 +216,7 @@ export default {
     },
     blockName: {
       type: String,
-      default: '',
+      default: "",
     },
     filters: {
       type: Object,
@@ -242,7 +257,7 @@ export default {
   },
   data() {
     return {
-      search: '',
+      search: "",
     };
   },
   components: {
@@ -254,10 +269,10 @@ export default {
   methods: {
     generateCSV() {
       const rows = this.FileExportContent;
-      let csvContent = '';
+      let csvContent = "";
       rows.forEach((rowArray) => {
-        const row = rowArray.join(',');
-        csvContent += row + '\r\n';
+        const row = rowArray.join(",");
+        csvContent += row + "\r\n";
       });
       download(csvContent, `${encodeURIComponent(this.blockName)}.csv`);
     },
@@ -269,8 +284,8 @@ export default {
     FileExportContent() {
       const dataTable = this.data.data.map((row) => {
         return row.map((col) => {
-          if (typeof col == 'object') {
-            return col.text || '';
+          if (typeof col == "object") {
+            return col.text || "";
           }
           return col;
         });

@@ -60,11 +60,8 @@
   </div>
 </template>
 <script>
-import BaseInput from "./Base.vue";
-
 export default {
   name: "input-select",
-  extends: BaseInput,
 
   data() {
     return {

@@ -10,7 +10,7 @@
   </Input>
 </template>
 <script>
-import Input from "../DS/Form/Index.vue";
+import Input from "../DS/Form/Input.vue";
 
 export default {
   name: "BlockField",
