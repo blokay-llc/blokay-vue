@@ -23,7 +23,7 @@
         :class="{ darken: variant == 'darken' }"
         :id="id"
       >
-        {{ text || 'Seleccionar' }}
+        {{ text || "Seleccionar" }}
       </div>
     </div>
     <app-modal
@@ -45,8 +45,14 @@
           v-if="options.length > 10"
         />
         <ul class="w-full options-menu">
-          <li v-for="option in optionsComputed" :key="option.value" @click="selectOption(option)">
-            <span :class="{ selected: modelValue == option.value }">{{ option.text }}</span>
+          <li
+            v-for="option in optionsComputed"
+            :key="option.value"
+            @click="selectOption(option)"
+          >
+            <span :class="{ selected: modelValue == option.value }">{{
+              option.text
+            }}</span>
           </li>
         </ul>
       </div>
@@ -54,28 +60,28 @@
   </div>
 </template>
 <script>
-import BaseInput from './Base.vue';
+import BaseInput from "./Base.vue";
 
 export default {
-  name: 'input-select',
+  name: "input-select",
   extends: BaseInput,
 
   data() {
     return {
-      search: '',
+      search: "",
     };
   },
   computed: {
     optionsComputed() {
       let s = this.search.toLowerCase();
       return this.options.filter((o) => {
-        let text = '' + o.text || '';
+        let text = "" + o.text || "";
         return text.toLowerCase().includes(s);
       });
     },
     text() {
       let opt = this.options.find((opt) => opt.value == this.modelValue);
-      let text = '' + (opt?.text || '');
+      let text = "" + (opt?.text || "");
       return text;
     },
   },
@@ -93,12 +99,12 @@ export default {
       return true;
     },
     selectOption(option) {
-      this.$emit('changeInput', '' + option.value);
-      this.$emit('onChange', '' + option.value);
+      this.$emit("changeInput", "" + option.value);
+      this.$emit("onChange", "" + option.value);
       this.$refs.dropdown.hide();
     },
     clickInput() {
-      this.search = '';
+      this.search = "";
       this.$refs.dropdown.show();
       this.activeInput = true;
     },
@@ -117,31 +123,30 @@ export default {
 };
 </script>
 
-<style lang="scss">
-.options-menu {
-  li,
-  .drop-container {
-    svg {
-      @apply h-5 w-5;
-      fill: theme('colors.gray.400');
-    }
-    a,
-    span,
-    option {
-      @apply font-light  py-2 md:py-2 px-5 md:text-base text-sm border-b border-gray-200 whitespace-nowrap cursor-pointer hover:bg-gray-100 text-black flex items-center gap-2;
-      &.selected {
-        @apply font-bold;
-      }
-    }
-  }
-
-  &.sm {
-    li {
-      a,
-      span {
-        @apply text-sm;
-      }
-    }
-  }
+<style>
+.options-menu li svg,
+.options-menu .drop-container svg {
+  @apply bl-h-5 bl-w-5;
+  fill: theme("colors.gray.400");
+}
+.options-menu li a,
+.options-menu li span,
+.options-menu li option,
+.options-menu .drop-container a,
+.options-menu .drop-container span,
+.options-menu .drop-container option {
+  @apply bl-font-light  bl-py-2 md:bl-py-2 bl-px-5 md:bl-text-base bl-text-sm bl-border-b bl-border-gray-200 bl-whitespace-nowrap bl-cursor-pointer hover:bl-bg-gray-100 bl-text-black bl-flex bl-items-center bl-gap-2;
+}
+.options-menu li a.selected,
+.options-menu li span.selected,
+.options-menu li option.selected,
+.options-menu .drop-container a.selected,
+.options-menu .drop-container span.selected,
+.options-menu .drop-container option.selected {
+  @apply bl-font-bold;
+}
+.options-menu.sm li a,
+.options-menu.sm li span {
+  @apply bl-text-sm;
 }
 </style>

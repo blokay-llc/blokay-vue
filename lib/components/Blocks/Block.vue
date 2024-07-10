@@ -39,13 +39,13 @@
   </div>
 </template>
 <script>
-import useApi from '@/common/blokay.service';
-import BlockForm from './BlockForm.vue';
-import BlockResponse from './BlockResponse.vue';
-import { Loader } from '../DS/Index';
+import useApi from "../../common/blokay.service";
+import BlockForm from "./BlockForm.vue";
+import BlockResponse from "./BlockResponse.vue";
+import { Loader } from "../DS/Index";
 
 export default {
-  name: 'Block',
+  name: "Block",
   props: {
     blockId: {
       type: String,
@@ -107,7 +107,7 @@ export default {
       errors: {},
       exception: null,
       autoexecuted: false,
-      api: useApi('https://app.blokay.com/api/', {
+      api: useApi("https://app.blokay.com/api/", {
         getJwtToken: () => this.jwt,
       }),
     };
@@ -133,7 +133,8 @@ export default {
           const n = result.Block;
           const autoExec =
             this.autoExecute ||
-            ((result.Block.filters.autoExec == undefined || result.Block.filters.autoExec) &&
+            ((result.Block.filters.autoExec == undefined ||
+              result.Block.filters.autoExec) &&
               !n.filters?.fields?.length);
           this.autoexecuted = autoExec;
           this.block = n;
@@ -154,7 +155,7 @@ export default {
       if (n.filters?.fields) {
         for (const field of n.filters.fields) {
           if (!this.form[field.name] && field.isRequired) {
-            errorsTmp[field.name] = 'The field is required';
+            errorsTmp[field.name] = "The field is required";
           }
         }
         if (Object.values(errorsTmp).length > 0) {

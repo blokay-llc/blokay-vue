@@ -22,7 +22,9 @@
             <div class="flex items-center justify-start gap-3">
               <div class="action-icon" @click="clickBack" v-if="clickBack">
                 <svg viewBox="0 0 24 24">
-                  <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"></path>
+                  <path
+                    d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"
+                  ></path>
                 </svg>
               </div>
 
@@ -36,7 +38,11 @@
           <div v-if="error" class="modal-error">
             <span class="text">{{ error }}</span>
           </div>
-          <div class="body-modal" ref="bodyModal" :class="{ 'with-error': error }">
+          <div
+            class="body-modal"
+            ref="bodyModal"
+            :class="{ 'with-error': error }"
+          >
             <slot></slot>
           </div>
           <div class="modal-footer" v-if="$slots.footer">
@@ -50,12 +56,12 @@
 
 <script>
 export default {
-  name: 'Modal',
+  name: "Modal",
   props: {
     title: { required: false, default: null, type: String },
-    position: { required: false, default: 'right', type: String },
-    classSection: { required: false, default: '', type: String },
-    size: { required: false, default: 'md', type: String },
+    position: { required: false, default: "right", type: String },
+    classSection: { required: false, default: "", type: String },
+    size: { required: false, default: "md", type: String },
     canClose: { required: false, default: true, type: Boolean },
     clickBack: { required: false, default: null },
   },
@@ -82,130 +88,119 @@ export default {
     hide() {
       this.showing = false;
       this.error = null;
-      this.$emit('hide');
+      this.$emit("hide");
     },
   },
   watch: {
     showing(a) {
-      let root = document.getElementsByTagName('html')[0];
-      let app = document.getElementsByClassName('page-app')[0];
+      let root = document.getElementsByTagName("html")[0];
+      let app = document.getElementsByClassName("page-app")[0];
       if (a) {
-        document.body.classList.add('no-scroll');
-        app.classList.add('no-scroll');
-        root.classList.add('no-scroll');
+        document.body.classList.add("no-scroll");
+        app.classList.add("no-scroll");
+        root.classList.add("no-scroll");
       } else {
-        document.body.classList.remove('no-scroll');
-        root.classList.remove('no-scroll');
-        app.classList.remove('no-scroll');
+        document.body.classList.remove("no-scroll");
+        root.classList.remove("no-scroll");
+        app.classList.remove("no-scroll");
       }
     },
   },
 };
 </script>
-<style lang="scss">
+<style>
 .modal-backdrop {
-  @apply fixed bg-black bg-opacity-60 top-0 left-0 w-full h-screen;
+  @apply bl-fixed bl-bg-black bl-bg-opacity-60 bl-top-0 bl-left-0 bl-w-full bl-h-screen;
 }
+
 .modal-container {
-  @apply fixed  h-screen overflow-y-hidden top-0 left-0 flex w-full select-none  overflow-x-hidden;
-  .modal-section {
-    @apply text-black  bg-gray-50 overflow-hidden;
-
-    .body-modal {
-      @apply py-5 px-4 overflow-y-auto;
-    }
-
-    .modal-footer {
-      @apply py-5 px-4 border-t border-gray-200;
-    }
-
-    &.right-position {
-      @apply ml-auto h-full lg:w-4/12 md:rounded-xl md:rounded-r-none min-w-full md:min-w-max;
-    }
-
-    &.center-position {
-      @apply md:mx-auto my-auto lg:my-auto mx-3 rounded-3xl;
-
-      &.sm {
-        @apply md:w-1/2 lg:w-2/4 xl:w-1/4  w-full;
-      }
-      &.md {
-        @apply md:w-2/3 lg:w-2/4 w-full;
-      }
-      &.lg {
-        @apply md:w-2/3 lg:w-3/4 w-full;
-      }
-      .body-modal {
-        max-height: calc(100vh - 200px);
-      }
-      .body-modal.with-error {
-        max-height: calc(100vh - 250px);
-      }
-    }
-
-    &.bottom-position {
-      @apply mx-auto md:w-2/4  w-full rounded-xl rounded-b-none mt-auto;
-      .body-modal {
-        max-height: 60vh;
-      }
-      &.sm {
-        @apply md:w-1/2 lg:w-2/4 xl:w-1/4  w-full;
-      }
-    }
-
-    .modal-header {
-      @apply flex justify-between items-center border-b border-gray-200 bg-main-950 text-white py-4 px-4 text-lg;
-      .close {
-        @apply cursor-pointer p-1.5 rounded-full hover:bg-main-900;
-        svg {
-          @apply w-8 h-8;
-          fill: theme('colors.white');
-        }
-      }
-    }
-    .modal-error {
-      @apply w-full  p-3 bg-secondary-600 items-center text-white leading-none flex lg:inline-flex font-light;
-
-      .text {
-        @apply mr-2 text-left flex-auto text-white;
-      }
-    }
-  }
+  @apply bl-fixed  bl-h-screen bl-overflow-y-hidden bl-top-0 bl-left-0 bl-flex bl-w-full bl-select-none  bl-overflow-x-hidden;
+}
+.modal-container .modal-section {
+  @apply bl-text-black  bl-bg-gray-50 bl-overflow-hidden;
+}
+.modal-container .modal-section .body-modal {
+  @apply bl-py-5 bl-px-4 bl-overflow-y-auto;
+}
+.modal-container .modal-section .modal-footer {
+  @apply bl-py-5 bl-px-4 bl-border-t bl-border-gray-200;
+}
+.modal-container .modal-section.right-position {
+  @apply bl-ml-auto bl-h-full lg:bl-w-4/12 md:bl-rounded-xl md:bl-rounded-r-none bl-min-w-full md:bl-min-w-max;
+}
+.modal-container .modal-section.center-position {
+  @apply md:bl-mx-auto bl-my-auto lg:bl-my-auto bl-mx-3 bl-rounded-3xl;
+}
+.modal-container .modal-section.center-position.sm {
+  @apply md:bl-w-1/2 lg:bl-w-2/4 xl:bl-w-1/4  bl-w-full;
+}
+.modal-container .modal-section.center-position.md {
+  @apply md:bl-w-2/3 lg:bl-w-2/4 bl-w-full;
+}
+.modal-container .modal-section.center-position.lg {
+  @apply md:bl-w-2/3 lg:bl-w-3/4 bl-w-full;
+}
+.modal-container .modal-section.center-position .body-modal {
+  max-height: calc(100vh - 200px);
+}
+.modal-container .modal-section.center-position .body-modal.with-error {
+  max-height: calc(100vh - 250px);
+}
+.modal-container .modal-section.bottom-position {
+  @apply bl-mx-auto md:bl-w-2/4  bl-w-full bl-rounded-xl bl-rounded-b-none bl-mt-auto;
+}
+.modal-container .modal-section.bottom-position .body-modal {
+  max-height: 60vh;
+}
+.modal-container .modal-section.bottom-position.sm {
+  @apply md:bl-w-1/2 lg:bl-w-2/4 xl:bl-w-1/4  bl-w-full;
+}
+.modal-container .modal-section .modal-header {
+  @apply bl-flex bl-justify-between bl-items-center bl-border-b bl-border-gray-200 bl-bg-neutral-950 bl-text-white bl-py-4 bl-px-4 bl-text-lg;
+}
+.modal-container .modal-section .modal-header .close {
+  @apply bl-cursor-pointer bl-p-1.5 bl-rounded-full hover:bl-bg-neutral-900;
+}
+.modal-container .modal-section .modal-header .close svg {
+  @apply bl-w-8 bl-h-8;
+  fill: theme("colors.white");
+}
+.modal-container .modal-section .modal-error {
+  @apply bl-w-full  bl-p-3 bl-bg-neutral-600 bl-items-center bl-text-white bl-leading-none bl-flex lg:bl-inline-flex bl-font-light;
+}
+.modal-container .modal-section .modal-error .text {
+  @apply bl-mr-2 bl-text-left bl-flex-auto bl-text-white;
 }
 
-.dark-mode {
-  .modal-container {
-    .modal-section {
-      @apply text-neutral-200;
-      background: #2b3450;
-
-      .modal-footer {
-        border-color: #1f2739;
-      }
-
-      .modal-header {
-        border-color: #1f2739;
-        .close {
-          background: #1f2739;
-          svg {
-            fill: theme('colors.neutral.600');
-          }
-        }
-      }
-    }
-  }
+.dark-mode .modal-container .modal-section {
+  @apply bl-text-neutral-200;
+  background: #2b3450;
 }
+.dark-mode .modal-container .modal-section .modal-footer {
+  border-color: #1f2739;
+}
+.dark-mode .modal-container .modal-section .modal-header {
+  border-color: #1f2739;
+}
+.dark-mode .modal-container .modal-section .modal-header .close {
+  background: #1f2739;
+}
+.dark-mode .modal-container .modal-section .modal-header .close svg {
+  fill: theme("colors.neutral.600");
+}
+
 .from_bottom-enter-active {
   animation: bounce-in 0.3s;
 }
+
 .from_bottom-leave-active {
   animation: bounce-in 0.3s reverse;
 }
+
 @keyframes bounce-in {
   0% {
     transform: translate(0, 100%);
   }
-
   100% {
     transform: translate(0, 0%);
   }
