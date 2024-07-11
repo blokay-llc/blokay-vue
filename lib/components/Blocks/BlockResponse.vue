@@ -17,7 +17,7 @@ import { Table } from "./Types/Table/Index";
 import Line from "./Types/ChartLine.vue";
 import Values from "./Types/Values.vue";
 import Exception from "./Types/Exception/Index.vue";
-// import ChartDoughnut from "./Types/ChartDoughnut.vue";
+import Doughnut from "./Types/ChartDoughnut.vue";
 import Message from "./Types/Message.vue";
 
 export default {
@@ -53,7 +53,7 @@ export default {
     Line,
     Values,
     Exception,
-    // ChartDoughnut,
+    Doughnut,
     Message,
   },
   computed: {
