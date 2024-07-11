@@ -118,8 +118,8 @@ export default {
     setResponse(response) {
       this.response = response;
     },
-    setFormInterceptor() {
-      this.setForm(this.form);
+    setFormInterceptor(form) {
+      this.setForm(form);
       this.onChangeForm && this.onChangeForm();
     },
     setForm(form) {

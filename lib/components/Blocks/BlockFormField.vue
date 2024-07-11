@@ -3,9 +3,14 @@
   <Select
     v-else-if="row.type === 'select'"
     :error="errors[row.name] || ''"
-    v-model="form[row.name]"
     :label="row.label"
     v-bind="$props"
+    :modelValue="form[row.name]"
+    @change="
+      (val) => {
+        setForm({ ...form, [row.name]: val });
+      }
+    "
   >
     <option :value="undefined"></option>
     <option v-for="option in row.options" :value="option.value">
@@ -16,17 +21,27 @@
     v-else-if="row.type === 'textarea'"
     :type="row.type"
     :error="errors[row.name] || ''"
-    v-model="form[row.name]"
     :label="row.label"
     v-bind="$props"
+    :modelValue="form[row.name]"
+    @change="
+      (val) => {
+        setForm({ ...form, [row.name]: val });
+      }
+    "
   />
   <Input
     v-else
     :type="row.type"
     :error="errors[row.name] || ''"
-    v-model="form[row.name]"
     :label="row.label"
     v-bind="$props"
+    :modelValue="form[row.name]"
+    @change="
+      (val) => {
+        setForm({ ...form, [row.name]: val });
+      }
+    "
   />
 </template>
 <script>

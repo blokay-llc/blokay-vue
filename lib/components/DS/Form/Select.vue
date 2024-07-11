@@ -31,7 +31,6 @@
       :class="{
         'bl-error': !!error,
       }"
-      :type="type"
       :id="id"
       :placeholder="placeholder || label"
       :disabled="disabled"

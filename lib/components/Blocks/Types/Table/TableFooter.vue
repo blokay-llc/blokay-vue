@@ -1,21 +1,23 @@
 <template>
   <div class="bl-table-footer">
-    <select
-      label="Per page"
-      :value="perPage"
-      @change="
-        (e) => {
-          setPerPage(+e.target.value);
-        }
-      "
-    >
-      <option :value="null">Select an option</option>
-      <option :value="5">5</option>
-      <option :value="10">10</option>
-      <option :value="20">20</option>
-      <option :value="50">50</option>
-      <option :value="100">100</option>
-    </select>
+    <div>
+      <Select
+        :modelValue="perPage"
+        label="Per page"
+        @change="
+          (val) => {
+            setPerPage(+val);
+          }
+        "
+      >
+        <option :value="null">Select an option</option>
+        <option :value="5">5</option>
+        <option :value="10">10</option>
+        <option :value="20">20</option>
+        <option :value="50">50</option>
+        <option :value="100">100</option>
+      </Select>
+    </div>
     <div class="bl-table-page">
       <div
         v-if="page > 0"
@@ -39,7 +41,7 @@
 
 <script>
 import Icon from "../../../DS/Icon.vue";
-import Input from "../../../DS/Form/Input.vue";
+import Select from "../../../DS/Form/Select.vue";
 
 export default {
   name: "TableFooter",
@@ -52,7 +54,7 @@ export default {
   },
   components: {
     Icon,
-    Input,
+    Select,
   },
 };
 </script>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="bl-mb-5 bl-justify-end bl-flex bl-items-center bl-gap-3">
+    <div class="bl-table-header">
       <div class="bl-flex bl-gap-3 bl-items-center bl-mr-auto">
         <div
           v-if="onBack && !autoExecuted"
@@ -10,10 +10,7 @@
           <Icon icon="left" class="bl-icon" />
         </div>
 
-        <div
-          v-if="showTitle"
-          class="bl-text-neutral-800 dark:bl-text-neutral-200"
-        >
+        <div v-if="showTitle" class="bl-table-title">
           {{ blockName }}
         </div>
       </div>
