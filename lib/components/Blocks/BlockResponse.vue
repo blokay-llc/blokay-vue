@@ -14,10 +14,10 @@
 </template>
 <script>
 import { Table } from "./Types/Table/Index";
-// import ChartLine from './Types/ChartLine.vue';
+import Line from "./Types/ChartLine.vue";
 import Values from "./Types/Values.vue";
 import Exception from "./Types/Exception/Index.vue";
-// import ChartDoughnut from './Types/ChartDoughnut';
+// import ChartDoughnut from "./Types/ChartDoughnut.vue";
 import Message from "./Types/Message.vue";
 
 export default {
@@ -50,7 +50,7 @@ export default {
   },
   components: {
     Table,
-    // ChartLine,
+    Line,
     Values,
     Exception,
     // ChartDoughnut,

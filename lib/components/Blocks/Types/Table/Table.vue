@@ -105,7 +105,7 @@ const handleFilters = (filters) => {
   return (item) => {
     for (let j = 0; j < filters.length; j++) {
       const filter = filters[j];
-      const val = item[filter.col];
+      const val = item[filter.col]?.text || item[filter.col];
       if (filter.cond == "=" && item[filter.col] != filter.value) {
         return false;
       } else if (filter.cond == "!=" && val == filter.value) {

@@ -139,6 +139,7 @@ export default {
             ((result.Block.filters.autoExec == undefined ||
               result.Block.filters.autoExec) &&
               !n.filters?.fields?.length);
+
           this.autoexecuted = autoExec;
           this.block = n;
           if (autoExec) {
@@ -166,22 +167,19 @@ export default {
           return;
         }
       }
-
-      if (this.loading) return;
+      // if (this.loading) return;
       this.loading = true;
       this.errors = {};
 
+      let data = {
+        blockId: n.id,
+        form: {
+          ...this.form,
+          ...extraForm,
+        },
+      };
       this.api
-        .blockExec(
-          {
-            blockId: n.id,
-            form: {
-              ...this.form,
-              ...extraForm,
-            },
-          },
-          this.jwt
-        )
+        .blockExec(data, this.jwt)
         .then((result) => {
           this.response = result.response;
           this.onExec && this.onExec(result.response);
