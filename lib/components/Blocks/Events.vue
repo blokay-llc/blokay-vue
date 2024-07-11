@@ -5,7 +5,7 @@
       position="center"
       ref="modalRef"
       bgColor="transparent"
-      :onConfirmClose="hasChanges ? () => modalConfirmRef.current.showModal() : null"
+      :onConfirmClose="hasChanges ? () => $refs.modalConfirmRef.show() : null"
     >
       <Block
         v-if="subBlock.blockKey || subBlock.blockId"
@@ -14,13 +14,17 @@
             setHasChanges(true);
           }
         "
-        blockId="{subBlock.blockId}"
-        blockKey="{subBlock.blockKey}"
-        defaultForm="{subBlock.form}"
+        :blockId="subBlock.blockId"
+        :blockKey="subBlock.blockKey"
+        :defaultForm="subBlock.form"
         :onExec="
           (result) => {
-            if (!result.type || result.type == 'error' || result.type == 'message') {
-              modalRef.current.hideModal();
+            if (
+              !result.type ||
+              result.type == 'error' ||
+              result.type == 'message'
+            ) {
+              $refs.modalRef.hide();
               onExecuted && onExecuted();
             }
           }
@@ -28,21 +32,21 @@
       />
     </Modal>
 
-    <Modal size="sm" position="center" ref="{modalConfirmRef}">
+    <Modal size="sm" position="center" ref="modalConfirmRef">
       Are you sure you want to close this block?
 
       <template #footer>
         <div class="flex items-center gap-5">
           <Button
             text="No, cancel"
-            :onClick="() => modalConfirmRef.current.hideModal()"
+            @click="() => $refs.modalConfirmRef.hide()"
             variant="secondary"
             class="w-full"
             size="md"
           />
           <Button
             text="Yes, close"
-            :onClick="() => closeBlock()"
+            @click="() => closeBlock()"
             variant="primary"
             class="w-full"
             size="md"
@@ -53,38 +57,42 @@
   </div>
 </template>
 <script>
-import Block from './Block';
+import Block from "./Block.vue";
+import Modal from "../DS/Modal.vue";
+import Button from "../DS/Form/Button.vue";
 
 export default {
-  name: 'EventsHandler',
+  name: "EventsHandler",
   props: {
     onExecuted: {
       type: Function,
       default: null,
     },
   },
+  components: {
+    Block,
+    Modal,
+    Button,
+  },
   data() {
     return {
-      subBlockDefault: {
+      subBlock: {
         blockId: null,
-        blockKey: '',
+        blockKey: "",
         form: {},
       },
-      subBlock: this.subBlockDefault,
       hasChanges: false,
-      modalRef: null,
-      modalConfirmRef: null,
     };
   },
   methods: {
     closeBlock() {
-      this.modalRef.current.hideModal();
-      this.modalConfirmRef.current.hideModal();
+      this.$refs.modalRef.hide();
+      this.$refs.modalConfirmRef.hide();
       this.hasChanges = false;
     },
     openBlock({ blockId, blockKey, form }) {
       this.subBlock = { blockId, blockKey, form };
-      this.modalRef.current.showModal();
+      this.$refs.modalRef.show();
     },
     setHasChanges() {
       this.hasChanges = true;

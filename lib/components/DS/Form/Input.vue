@@ -14,15 +14,7 @@
     @click="clickInput"
   >
     <icon :icon="icon" v-if="icon" class="icon-input" />
-    <label
-      class="label-style"
-      :class="{
-        'text-white': variant == 'darken',
-        'text-gray-700': variant != 'darken',
-      }"
-      :for="id"
-      v-if="label"
-    >
+    <label class="label-style text-gray-700" :for="id" v-if="label">
       {{ label }}
     </label>
     <input
@@ -30,7 +22,6 @@
       :value="modelValue"
       @input="handleChange"
       class="input-style"
-      :class="{ darken: variant == 'darken' }"
       :type="type"
       :id="id"
       :placeholder="placeholder || label"

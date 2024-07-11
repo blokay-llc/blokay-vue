@@ -76,25 +76,21 @@
         v-if="filters.fields.length"
       >
         <div
-          v-for="(item, index) in fielters.fields"
+          v-for="(item, index) in filters.fields"
           class="bl-grid bl-grid-cols-12 bl-items-center bl-gap-2"
           :key="index"
         >
           <div class="bl-col-span-4">
-            <Select
+            <select
               label="Column"
-              value="{item.col}"
-              :onChange="
-                (val) => {
-                  setFilters((prev) => {
-                    const newFilters = { ...prev };
-                    newFilters.fields[index].col = val;
-                    return newFilters;
-                  });
+              :value="item.col"
+              @change="
+                (e) => {
+                  const newFilters = { ...this.filters };
+                  newFilters.fields[index].col = e.target.value;
+                  setFilters(newFilters);
                 }
               "
-              type="select"
-              mb="0"
             >
               <option
                 v-for="(item, index) in data.header"
@@ -103,23 +99,19 @@
               >
                 {{ item }}
               </option>
-            </Select>
+            </select>
           </div>
           <div class="bl-col-span-3">
-            <Select
+            <select
               label="Condition"
-              value="{item.cond}"
-              :onChange="
-                (val) => {
-                  setFilters((prev) => {
-                    const newFilters = { ...prev };
-                    newFilters.fields[index].cond = val;
-                    return newFilters;
-                  });
+              :value="item.cond"
+              @change="
+                (e) => {
+                  const newFilters = { ...this.filters };
+                  newFilters.fields[index].cond = e.target.value;
+                  setFilters(newFilters);
                 }
               "
-              type="select"
-              mb="0"
             >
               <option value=">">&gt;</option>
               <option value="<">&lt;</option>
@@ -127,19 +119,17 @@
               <option value="!=">Different to</option>
               <option value="contains">Contains</option>
               <option value="not_contains">Not contains</option>
-            </Select>
+            </select>
           </div>
           <div class="bl-col-span-4">
-            <Input
+            <input
               label="Value"
-              value="{item.value}"
-              :onChange="
-                (val) => {
-                  setFilters((prev) => {
-                    const newFilters = { ...prev };
-                    newFilters.fields[index].value = val;
-                    return newFilters;
-                  });
+              :value="item.value"
+              @change="
+                (e) => {
+                  const newFilters = { ...this.filters };
+                  newFilters.fields[index].value = e.target.value;
+                  setFilters(newFilters);
                 }
               "
               type="text"
@@ -152,12 +142,14 @@
               type="button"
               size="lg"
               :onClick="
-                () =>
-                  setFilters((prev) => {
-                    let newFilters = { ...prev, fields: [...prev.fields] };
-                    newFilters.fields.splice(index, 1);
-                    return { ...newFilters };
-                  })
+                () => {
+                  let newFilters = {
+                    ...this.filters,
+                    fields: [...this.filters.fields],
+                  };
+                  newFilters.fields.splice(index, 1);
+                  setFilters(newFilters);
+                }
               "
             />
           </div>
@@ -170,10 +162,10 @@
         type="button"
         size="xs"
         text="Add new filter"
-        :onClick="
+        @click="
           () => {
             setFilters({
-              ...filters,
+              ...this.filters,
               fields: [...filters.fields, { cond: '=', value: '', col: 0 }],
             });
           }

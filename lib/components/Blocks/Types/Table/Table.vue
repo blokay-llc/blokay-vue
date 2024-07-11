@@ -45,7 +45,7 @@
             />
           </tr>
 
-          <TableFooterRow data="{contentComputed}" />
+          <TableFooterRow :data="contentComputed" />
         </tbody>
       </table>
     </div>
@@ -72,6 +72,8 @@ import TableFooter from "./TableFooter.vue";
 import TableHeaderCell from "./TableHeaderCell.vue";
 import TableHeader from "./TableHeader.vue";
 import TableFooterRow from "./TableFooterRow.vue";
+import Modal from "../../../DS/Modal.vue";
+// import Events from "../../Events.vue";
 
 const sortTypes = (a, b) => {
   if (typeof a == "string" && typeof b == "string") {
@@ -180,6 +182,8 @@ export default {
     TableHeaderCell,
     TableHeader,
     TableFooterRow,
+    Modal,
+    // Events,
   },
   computed: {
     contentComputed() {
@@ -195,7 +199,7 @@ export default {
         content = content.filter(handleSearch(toSearch));
       }
 
-      if (this.filters.fields.length > 0) {
+      if (this.filters?.fields?.length > 0) {
         content = content.filter(handleFilters(this.filters.fields));
       }
       return content;

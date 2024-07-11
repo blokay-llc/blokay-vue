@@ -1,149 +1,113 @@
 <template>
-  <div class="relative w-full">
-    <div
-      class="box-input relative withvalue withlabel"
-      :class="{ active: activeInput, [size]: true }"
-      @click="clickInput"
+  <div
+    class="box-input"
+    :class="{
+      active: activeInput,
+      withvalue:
+        !!modelValue ||
+        type == 'date' ||
+        type == 'time' ||
+        type == 'datetime-local',
+      [size]: true,
+      withlabel: !!label,
+    }"
+    @click="clickInput"
+  >
+    <icon :icon="icon" v-if="icon" class="icon-input" />
+    <label class="label-style text-gray-700" :for="id" v-if="label">
+      {{ label }}
+    </label>
+    <select
+      @wheel="$event.target.blur()"
+      :value="modelValue"
+      @input="handleChange"
+      class="input-style"
+      :id="id"
+      :placeholder="placeholder || label"
+      :disabled="disabled"
+      @keydown="
+        (evt) => {
+          type == 'number' &&
+            ['e', 'E', '+', '-'].includes(evt.key) &&
+            evt.preventDefault();
+        }
+      "
+      @change="handleChange"
+      onKeyDown=""
     >
-      <label class="label-style z-10" :for="id" v-if="label">
-        {{ label }}
-      </label>
-      <label
-        :for="id"
-        v-if="label"
-        class="absolute bottom-4 right-2 bg-white rounded-full p-1 h-6 w-6 flex items-center justify-center"
-      >
-        <app-img src="/web/icons/drop.svg" style="width: 16px" />
-      </label>
-
-      <div
-        :value="modelValue"
-        @input="change"
-        class="input-style w-full truncate pr-10"
-        :class="{ darken: variant == 'darken' }"
-        :id="id"
-      >
-        {{ text || "Seleccionar" }}
-      </div>
-    </div>
-    <app-modal
-      :position="isMobile ? 'bottom' : 'center'"
-      size="sm"
-      ref="dropdown"
-      @hide="clickOutside"
-      containerClass="w-full"
-      title="Seleccionar una opción"
-    >
-      <app-loader v-if="options.length == 0" class="mx-auto" />
-      <div v-else>
-        <app-input
-          type="text"
-          v-model="search"
-          label="Buscador"
-          placeholder="Buscador"
-          icon="search"
-          v-if="options.length > 10"
-        />
-        <ul class="w-full options-menu">
-          <li
-            v-for="option in optionsComputed"
-            :key="option.value"
-            @click="selectOption(option)"
-          >
-            <span :class="{ selected: modelValue == option.value }">{{
-              option.text
-            }}</span>
-          </li>
-        </ul>
-      </div>
-    </app-modal>
+      <slot />
+    </select>
   </div>
 </template>
 <script>
 export default {
-  name: "input-select",
-
+  name: "Select",
+  emits: ["update:modelValue", "onChange"],
   data() {
     return {
-      search: "",
+      activeInput: false,
+      declaredEvents: false,
+      id: (Math.random() + 1).toString(36).substring(7),
     };
   },
-  computed: {
-    optionsComputed() {
-      let s = this.search.toLowerCase();
-      return this.options.filter((o) => {
-        let text = "" + o.text || "";
-        return text.toLowerCase().includes(s);
-      });
-    },
-    text() {
-      let opt = this.options.find((opt) => opt.value == this.modelValue);
-      let text = "" + (opt?.text || "");
-      return text;
-    },
+  mounted() {
+    this.declareEvents(this.id);
+  },
+  props: {
+    options: { type: Array, default: null, required: false },
+    icon: { type: String, required: false },
+    label: { type: String, required: false },
+    type: { type: String, required: false, default: "text" },
+    placeholder: { type: String, required: false },
+    modelValue: { required: false },
+    extraClass: { type: String, required: false },
+    disabled: { type: Boolean, required: false, default: false },
+    name: { type: String, required: false, default: null },
+    size: { type: String, required: false, default: "md" },
+    error: { type: String, required: false, default: null },
   },
   methods: {
-    isSame(a, b) {
-      if (!a.length) return false;
-      if (!b.length) return false;
-
-      for (let el of a) {
-        let find = b.find((x) => x.value == el.value);
-        if (!find) {
-          return false;
-        }
-      }
-      return true;
+    handleChange(e) {
+      let val = e.target.value;
+      this.$emit("change", val);
+      this.$emit("update:modelValue", val);
     },
-    selectOption(option) {
-      this.$emit("changeInput", "" + option.value);
-      this.$emit("onChange", "" + option.value);
-      this.$refs.dropdown.hide();
+    declareEvents(id) {
+      if (!id) return;
+      if (this.declaredEvents) return;
+
+      let el = document.getElementById(id);
+
+      if (!el) {
+        return;
+      }
+      this.declaredEvents = true;
+      el.addEventListener("blur", () => {
+        this.activeInput = false;
+        this.$emit("outside");
+      });
+      el.addEventListener("focus", () => {
+        this.activeInput = true;
+      });
     },
     clickInput() {
-      this.search = "";
-      this.$refs.dropdown.show();
-      this.activeInput = true;
+      let el = document.getElementById(this.id);
+
+      el && el.focus();
     },
-    clickOutside() {
-      this.activeInput = false;
-      // this.$refs.dropdown.show();
+    focus() {
+      let el = document.getElementById(this.id);
+      el && el.focus();
+    },
+    change(e) {
+      let value = e.target.value;
+      this.$emit("changeInput", value);
     },
   },
   watch: {
-    options(a, b) {
-      if (this.isSame(a, b)) {
-        return;
-      }
+    id(a) {
+      this.declareEvents(a);
     },
   },
 };
 </script>
-
-<style>
-.options-menu li svg,
-.options-menu .drop-container svg {
-  @apply bl-h-5 bl-w-5;
-  fill: theme("colors.gray.400");
-}
-.options-menu li a,
-.options-menu li span,
-.options-menu li option,
-.options-menu .drop-container a,
-.options-menu .drop-container span,
-.options-menu .drop-container option {
-  @apply bl-font-light  bl-py-2 md:bl-py-2 bl-px-5 md:bl-text-base bl-text-sm bl-border-b bl-border-gray-200 bl-whitespace-nowrap bl-cursor-pointer hover:bl-bg-gray-100 bl-text-black bl-flex bl-items-center bl-gap-2;
-}
-.options-menu li a.selected,
-.options-menu li span.selected,
-.options-menu li option.selected,
-.options-menu .drop-container a.selected,
-.options-menu .drop-container span.selected,
-.options-menu .drop-container option.selected {
-  @apply bl-font-bold;
-}
-.options-menu.sm li a,
-.options-menu.sm li span {
-  @apply bl-text-sm;
-}
-</style>

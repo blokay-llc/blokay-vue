@@ -13,15 +13,15 @@
   </div>
 </template>
 <script>
-import { Table } from './Types/Table/Index';
+import { Table } from "./Types/Table/Index";
 // import ChartLine from './Types/ChartLine.vue';
-import Values from './Types/Values.vue';
-import Exception from './Types/Exception/Index.vue';
+import Values from "./Types/Values.vue";
+import Exception from "./Types/Exception/Index.vue";
 // import ChartDoughnut from './Types/ChartDoughnut';
-import Message from './Types/Message.vue';
+import Message from "./Types/Message.vue";
 
 export default {
-  name: 'BlockResponse',
+  name: "BlockResponse",
   props: {
     block: {
       type: Object,
@@ -33,15 +33,15 @@ export default {
     },
     onReload: {
       type: Function,
-      required: true,
+      required: false,
     },
     onBack: {
       type: Function,
-      required: true,
+      required: false,
     },
     autoExecuted: {
       type: Boolean,
-      required: true,
+      required: false,
     },
     defaultOptions: {
       type: Object,
@@ -58,7 +58,7 @@ export default {
   },
   computed: {
     Component() {
-      return this.response?.type || 'exception';
+      return this.response?.type || "exception";
     },
     options() {
       return {

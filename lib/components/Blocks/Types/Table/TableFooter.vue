@@ -17,12 +17,20 @@
       <option :value="100">100</option>
     </select>
     <div class="bl-table-page">
-      <div v-if="page > 0" class="bl-action-button" @click="() => setPage(page - 1)">
+      <div
+        v-if="page > 0"
+        class="bl-action-button"
+        @click="() => setPage(page - 1)"
+      >
         <Icon icon="left" class="bl-icon" />
       </div>
       <span> Page: {{ page }} - {{ pagesCount }} </span>
 
-      <div v-if="page < pagesCount" class="bl-action-button" @click="() => setPage(page + 1)">
+      <div
+        v-if="page < pagesCount"
+        class="bl-action-button"
+        @click="() => setPage(page + 1)"
+      >
         <Icon icon="right" class="bl-icon" />
       </div>
     </div>
@@ -30,13 +38,13 @@
 </template>
 
 <script>
-import Icon from '../../../DS/Icon.vue';
-import Input from '../../../DS/Form/Input.vue';
+import Icon from "../../../DS/Icon.vue";
+import Input from "../../../DS/Form/Input.vue";
 
 export default {
-  name: 'TableFooter',
+  name: "TableFooter",
   props: {
-    perPage: { type: String, default: '' },
+    perPage: { type: [String, Number], default: "" },
     setPerPage: { type: Function, default: () => {} },
     setPage: { type: Function, default: () => {} },
     page: { type: Number, default: 1 },

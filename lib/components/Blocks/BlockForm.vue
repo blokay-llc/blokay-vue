@@ -10,7 +10,7 @@
 
     <div class="bl-block-form-fields" v-if="block.filters.fields">
       <div
-        v-for="row in block.filters.fields"
+        v-for="(row, index) in block.filters.fields"
         :key="index"
         :class="`${row.grid == 6 ? 'bl-col-span-1' : 'bl-col-span-2'} `"
       >
