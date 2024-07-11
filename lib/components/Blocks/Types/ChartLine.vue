@@ -1,5 +1,10 @@
 <template>
-  <LineChart :chartData="dataComputed" :options="optionsComputed" />
+  <div @mouseover="upHere = true" @mouseleave="upHere = false">
+    <LineChart
+      :chartData="dataComputed"
+      :options="upHere ? optionsComputedHover : optionsComputed"
+    />
+  </div>
 </template>
 
 <script>
@@ -37,6 +42,12 @@ export default {
   },
   name: "ChartLine",
   components: { LineChart },
+
+  data() {
+    return {
+      upHere: false,
+    };
+  },
 
   computed: {
     dataComputed() {
@@ -84,6 +95,12 @@ export default {
             text: this.title,
           },
         },
+      };
+    },
+    optionsComputedHover() {
+      return {
+        ...this.optionsComputed,
+        pointRadius: [3],
       };
     },
   },
