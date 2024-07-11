@@ -36,6 +36,7 @@
               v-for="(td, k) in row"
               :key="'cell-' + k"
               :td="td"
+              :eventsRef="$refs.eventsRef"
               :showAll="
                 () => {
                   setTextAll(td);
@@ -59,7 +60,11 @@
       :page="page"
     />
 
-    <Events ref="eventsRef" :onExecuted="() => onReload && onReload()" />
+    <Events
+      ref="eventsRef"
+      :jwt="jwt"
+      :onExecuted="() => onReload && onReload()"
+    />
     <Modal size="lg" position="center" ref="modalShowTextRef">
       <pre>{{ textAll }}</pre>
     </Modal>
@@ -73,7 +78,7 @@ import TableHeaderCell from "./TableHeaderCell.vue";
 import TableHeader from "./TableHeader.vue";
 import TableFooterRow from "./TableFooterRow.vue";
 import Modal from "../../../DS/Modal.vue";
-// import Events from "../../Events.vue";
+import Events from "../../Events.vue";
 
 const sortTypes = (a, b) => {
   if (typeof a == "string" && typeof b == "string") {
@@ -162,6 +167,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    jwt: {
+      type: String,
+      default: null,
+    },
     options: {
       type: Object,
       default: () => {
@@ -183,7 +192,7 @@ export default {
     TableHeader,
     TableFooterRow,
     Modal,
-    // Events,
+    Events,
   },
   computed: {
     contentComputed() {

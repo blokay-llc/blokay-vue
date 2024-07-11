@@ -1,36 +1,41 @@
 <template>
   <Teleport to="body">
     <div
-      class="modal-backdrop"
-      @click="hide"
+      class="bl-modal-backdrop"
+      @click="tryClose"
       v-show="showing"
       style="z-index: 100000"
       v-if="showing"
     />
 
     <Transition :name="position == 'bottom' ? 'from_bottom' : 'bounce'">
-      <div class="modal-container" style="z-index: 100000" v-if="showing">
+      <div
+        class="bl-modal-container"
+        style="z-index: 100000"
+        v-if="showing"
+        @click="tryClose"
+        @mousedown="(e) => e.stopPropagation()"
+      >
         <section
-          class="modal-section"
+          @mousedown="(e) => e.stopPropagation()"
+          @click="(e) => e.stopPropagation()"
+          class="bl-modal-section"
           :class="{
             [position + '-position']: true,
             [size]: true,
             [classSection]: true,
+            ['bl-bg-white dark:bl-bg-neutral-950']: bgColor == 'white',
           }"
         >
-          <div class="modal-header" v-if="title || canClose">
+          <div class="bl-modal-header" v-if="title">
             <div class="flex items-center justify-start gap-3">
               <div class="action-icon" @click="clickBack" v-if="clickBack">
-                <svg viewBox="0 0 24 24">
-                  <path
-                    d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"
-                  ></path>
-                </svg>
+                <icon icon="left" />
               </div>
 
               <h2 class="text-base md:text-base">{{ title }}</h2>
             </div>
-            <div class="close" @click="hide" v-if="canClose">
+            <div class="close" @click="hide">
               <icon icon="close" v-if="position != 'bottom'" />
               <icon icon="arrow_bottom" v-else />
             </div>
@@ -62,8 +67,9 @@ export default {
     position: { required: false, default: "right", type: String },
     classSection: { required: false, default: "", type: String },
     size: { required: false, default: "md", type: String },
-    canClose: { required: false, default: true, type: Boolean },
     clickBack: { required: false, default: null },
+    bgColor: { required: false, default: "white", type: String },
+    onConfirmClose: { required: false, default: null },
   },
   data() {
     return {
@@ -71,7 +77,14 @@ export default {
       error: null,
     };
   },
-
+  mounted() {
+    const escFunction = (event) => {
+      if (event.key === "Escape") {
+        this.tryClose();
+      }
+    };
+    document.addEventListener("keydown", escFunction, false);
+  },
   methods: {
     goToTop() {
       this.$refs.bodyModal.scrollTo(0, 0);
@@ -89,6 +102,13 @@ export default {
       this.showing = false;
       this.error = null;
       this.$emit("hide");
+    },
+    tryClose() {
+      if (this.onConfirmClose) {
+        this.onConfirmClose && this.onConfirmClose();
+      } else {
+        this.hide();
+      }
     },
   },
   watch: {
@@ -109,84 +129,67 @@ export default {
 };
 </script>
 <style>
-.modal-backdrop {
-  @apply bl-fixed bl-bg-black bl-bg-opacity-60 bl-top-0 bl-left-0 bl-w-full bl-h-screen;
+.bl-modal-backdrop {
+  @apply bl-fixed bl-z-50 bl-backdrop-blur-sm bl-bg-neutral-600/40  bl-top-0 bl-left-0 bl-w-full bl-h-screen;
 }
 
-.modal-container {
+.bl-modal-container {
   @apply bl-fixed  bl-h-screen bl-overflow-y-hidden bl-top-0 bl-left-0 bl-flex bl-w-full bl-select-none  bl-overflow-x-hidden;
 }
-.modal-container .modal-section {
-  @apply bl-text-black  bl-bg-gray-50 bl-overflow-hidden;
+.bl-modal-container .bl-modal-section {
+  @apply bl-relative bl-z-50 bl-transition-all dark:bl-text-neutral-200 bl-duration-100 bl-ease-in-out bl-text-black  bl-rounded-xl;
 }
-.modal-container .modal-section .body-modal {
+.bl-modal-container .bl-modal-section .body-modal {
   @apply bl-py-5 bl-px-4 bl-overflow-y-auto;
 }
-.modal-container .modal-section .modal-footer {
+.bl-modal-container .bl-modal-section .modal-footer {
   @apply bl-py-5 bl-px-4 bl-border-t bl-border-gray-200;
 }
-.modal-container .modal-section.right-position {
+.bl-modal-container .bl-modal-section.right-position {
   @apply bl-ml-auto bl-h-full lg:bl-w-4/12 md:bl-rounded-xl md:bl-rounded-r-none bl-min-w-full md:bl-min-w-max;
 }
-.modal-container .modal-section.center-position {
+.bl-modal-container .bl-modal-section.center-position {
   @apply md:bl-mx-auto bl-my-auto lg:bl-my-auto bl-mx-3 bl-rounded-3xl;
 }
-.modal-container .modal-section.center-position.sm {
+.bl-modal-container .bl-modal-section.center-position.sm {
   @apply md:bl-w-1/2 lg:bl-w-2/4 xl:bl-w-1/4  bl-w-full;
 }
-.modal-container .modal-section.center-position.md {
+.bl-modal-container .bl-modal-section.center-position.md {
   @apply md:bl-w-2/3 lg:bl-w-2/4 bl-w-full;
 }
-.modal-container .modal-section.center-position.lg {
+.bl-modal-container .bl-modal-section.center-position.lg {
   @apply md:bl-w-2/3 lg:bl-w-3/4 bl-w-full;
 }
-.modal-container .modal-section.center-position .body-modal {
+.bl-modal-container .bl-modal-section.center-position .body-modal {
   max-height: calc(100vh - 200px);
 }
-.modal-container .modal-section.center-position .body-modal.with-error {
+.bl-modal-container .bl-modal-section.center-position .body-modal.with-error {
   max-height: calc(100vh - 250px);
 }
-.modal-container .modal-section.bottom-position {
+.bl-modal-container .bl-modal-section.bottom-position {
   @apply bl-mx-auto md:bl-w-2/4  bl-w-full bl-rounded-xl bl-rounded-b-none bl-mt-auto;
 }
-.modal-container .modal-section.bottom-position .body-modal {
+.bl-modal-container .bl-modal-section.bottom-position .body-modal {
   max-height: 60vh;
 }
-.modal-container .modal-section.bottom-position.sm {
+.bl-modal-container .bl-modal-section.bottom-position.sm {
   @apply md:bl-w-1/2 lg:bl-w-2/4 xl:bl-w-1/4  bl-w-full;
 }
-.modal-container .modal-section .modal-header {
-  @apply bl-flex bl-justify-between bl-items-center bl-border-b bl-border-gray-200 bl-bg-neutral-950 bl-text-white bl-py-4 bl-px-4 bl-text-lg;
+.bl-modal-container .bl-modal-section .bl-modal-header {
+  @apply bl-flex bl-justify-between bl-items-center bl-border-b dark:bl-border-neutral-800 bl-border-neutral-200 bl-py-4 bl-px-4;
 }
-.modal-container .modal-section .modal-header .close {
+.bl-modal-container .bl-modal-section .bl-modal-header .close {
   @apply bl-cursor-pointer bl-p-1.5 bl-rounded-full hover:bl-bg-neutral-900;
 }
-.modal-container .modal-section .modal-header .close svg {
+.bl-modal-container .bl-modal-section .bl-modal-header .close svg {
   @apply bl-w-8 bl-h-8;
   fill: theme("colors.white");
 }
-.modal-container .modal-section .modal-error {
+.bl-modal-container .bl-modal-section .modal-error {
   @apply bl-w-full  bl-p-3 bl-bg-neutral-600 bl-items-center bl-text-white bl-leading-none bl-flex lg:bl-inline-flex bl-font-light;
 }
-.modal-container .modal-section .modal-error .text {
+.bl-modal-container .bl-modal-section .modal-error .text {
   @apply bl-mr-2 bl-text-left bl-flex-auto bl-text-white;
-}
-
-.dark-mode .modal-container .modal-section {
-  @apply bl-text-neutral-200;
-  background: #2b3450;
-}
-.dark-mode .modal-container .modal-section .modal-footer {
-  border-color: #1f2739;
-}
-.dark-mode .modal-container .modal-section .modal-header {
-  border-color: #1f2739;
-}
-.dark-mode .modal-container .modal-section .modal-header .close {
-  background: #1f2739;
-}
-.dark-mode .modal-container .modal-section .modal-header .close svg {
-  fill: theme("colors.neutral.600");
 }
 
 .from_bottom-enter-active {

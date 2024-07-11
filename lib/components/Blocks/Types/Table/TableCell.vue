@@ -10,7 +10,9 @@
       <template v-if="td?.type == 'text'">
         <span>{{ td.text }}</span>
       </template>
-      <template v-if="td?.html"> </template>
+      <template v-if="td?.html">
+        <div v-html="td.html" @click="() => clickButton(td)"></div>
+      </template>
     </template>
 
     <template v-else>
@@ -35,6 +37,11 @@ export default {
     td: { type: [String, Object, Number], default: () => {} },
     eventsRef: { type: Object, default: () => {} },
     showAll: { type: Function, default: () => {} },
+  },
+  methods: {
+    clickButton(td) {
+      td.click && this.eventsRef[td.click](td.args);
+    },
   },
 };
 </script>

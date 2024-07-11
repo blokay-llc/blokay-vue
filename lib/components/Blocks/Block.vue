@@ -21,6 +21,7 @@
 
         <BlockResponse
           v-if="response"
+          :jwt="jwt"
           :response="response"
           :block="block"
           :onReload="() => execBlock(block)"

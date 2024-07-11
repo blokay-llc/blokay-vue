@@ -9,13 +9,14 @@
       :autoExecuted="autoExecuted"
       :options="options"
       :is="Component"
+      :jwt="jwt"
     />
   </div>
 </template>
 <script>
 import { Table } from "./Types/Table/Index";
 import Line from "./Types/ChartLine.vue";
-import Values from "./Types/Values.vue";
+import Value from "./Types/Values.vue";
 import Exception from "./Types/Exception/Index.vue";
 import Doughnut from "./Types/ChartDoughnut.vue";
 import Message from "./Types/Message.vue";
@@ -47,11 +48,15 @@ export default {
       type: Object,
       default: () => {},
     },
+    jwt: {
+      type: String,
+      default: null,
+    },
   },
   components: {
     Table,
     Line,
-    Values,
+    Value,
     Exception,
     Doughnut,
     Message,

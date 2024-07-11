@@ -1,5 +1,6 @@
 <template>
   <Input
+    v-if="row.type !== 'hidden'"
     :type="row.type"
     :error="errors[row.name] || ''"
     v-model="form[row.name]"

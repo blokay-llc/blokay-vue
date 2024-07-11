@@ -7,8 +7,9 @@
       bgColor="transparent"
       :onConfirmClose="hasChanges ? () => $refs.modalConfirmRef.show() : null"
     >
-      <Block
+      <BlockEvent
         v-if="subBlock.blockKey || subBlock.blockId"
+        :jwt="jwt"
         :onChangeForm="
           () => {
             setHasChanges(true);
@@ -57,7 +58,8 @@
   </div>
 </template>
 <script>
-import Block from "./Block.vue";
+import { defineAsyncComponent } from "vue";
+// import BlockEvent from "./Block.vue";
 import Modal from "../DS/Modal.vue";
 import Button from "../DS/Form/Button.vue";
 
@@ -68,9 +70,13 @@ export default {
       type: Function,
       default: null,
     },
+    jwt: {
+      type: String,
+      default: null,
+    },
   },
   components: {
-    Block,
+    BlockEvent: defineAsyncComponent(() => import("./Block.vue")),
     Modal,
     Button,
   },
