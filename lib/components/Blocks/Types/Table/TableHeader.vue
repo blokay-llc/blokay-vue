@@ -28,7 +28,7 @@
               setFilters({ ...filters, search: v });
             }
           "
-          autocomplete="off"
+          autoComplete="off"
           label="Search"
           icon="search"
           class="bl-input-search-main"
