@@ -24,7 +24,7 @@
           :jwt="jwt"
           :response="response"
           :block="block"
-          :onReload="() => execBlock(block)"
+          :onReload="reload"
           :autoExecuted="block.filters.autoExec"
           :defaultOptions="defaultOptions"
           :onBack="
@@ -223,6 +223,9 @@ export default {
       a.target = "_blank";
       a.click();
       window.URL.revokeObjectURL(url);
+    },
+    reload() {
+      this.execBlock(this.block);
     },
   },
   mounted() {

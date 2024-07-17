@@ -1,65 +1,68 @@
 <template>
   <div>
-    <TableHeader
-      v-if="options.showHeader"
-      :onBack="onBack"
-      :autoExecuted="autoExecuted"
-      :blockName="blockName"
-      :filters="filters"
-      :data="data"
-      :setPage="setPage"
-      :setFilters="(f) => (filters = f)"
-      :onReload="onReload"
-      :showTitle="options.showTitle"
-      :canExport="options.canExport"
-      :canFilter="options.canFilter"
-      :showSearchBar="options.showSearchBar"
-      :onExport="onExport"
-    />
+    <div v-if="data.data?.length > 0">
+      <TableHeader
+        v-if="options.showHeader"
+        :onBack="onBack"
+        :autoExecuted="autoExecuted"
+        :blockName="blockName"
+        :filters="filters"
+        :data="data"
+        :setPage="setPage"
+        :setFilters="(f) => (filters = f)"
+        :onReload="onReload"
+        :showTitle="options.showTitle"
+        :canExport="options.canExport"
+        :canFilter="options.canFilter"
+        :showSearchBar="options.showSearchBar"
+        :onExport="onExport"
+      />
 
-    <div class="bl-table">
-      <table>
-        <thead v-if="data.header">
-          <tr>
-            <TableHeaderCell
-              v-for="(th, i) in data.header"
-              :key="'cell-' + i"
-              :setSort="setSort"
-              :index="i"
-              :sort="sort"
-              :th="th"
-            />
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="(row, ki) in tableContentVals" :key="'row-' + ki">
-            <TableCell
-              v-for="(td, k) in row"
-              :key="'cell-' + k"
-              :td="td"
-              :eventsRef="$refs.eventsRef"
-              :showAll="
-                () => {
-                  setTextAll(td);
-                  $refs.modalShowTextRef.show();
-                }
-              "
-            />
-          </tr>
+      <div class="bl-table">
+        <table>
+          <thead v-if="data.header">
+            <tr>
+              <TableHeaderCell
+                v-for="(th, i) in data.header"
+                :key="'cell-' + i"
+                :setSort="setSort"
+                :index="i"
+                :sort="sort"
+                :th="th"
+              />
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(row, ki) in tableContentVals" :key="'row-' + ki">
+              <TableCell
+                v-for="(td, k) in row"
+                :key="'cell-' + k"
+                :td="td"
+                :eventsRef="$refs.eventsRef"
+                :showAll="
+                  () => {
+                    setTextAll(td);
+                    $refs.modalShowTextRef.show();
+                  }
+                "
+              />
+            </tr>
 
-          <TableFooterRow :data="contentComputed" />
-        </tbody>
-      </table>
+            <TableFooterRow :data="contentComputed" />
+          </tbody>
+        </table>
+      </div>
+
+      <TableFooter
+        v-if="options.showPagination && data?.data?.length > 10"
+        :perPage="PER_PAGE"
+        :pagesCount="pagesCount"
+        :setPerPage="setPerPage"
+        :setPage="(p) => (page = p)"
+        :page="page"
+      />
     </div>
-
-    <TableFooter
-      v-if="options.showPagination && data?.data?.length > 10"
-      :perPage="PER_PAGE"
-      :pagesCount="pagesCount"
-      :setPerPage="setPerPage"
-      :setPage="(p) => (page = p)"
-      :page="page"
-    />
+    <div className="bl-table-no-results" v-else>No results to display.</div>
 
     <Events
       ref="eventsRef"
