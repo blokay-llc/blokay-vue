@@ -10,6 +10,7 @@
       :options="options"
       :is="Component"
       :jwt="jwt"
+      @exportExcel="exportExcel"
     />
   </div>
 </template>
@@ -70,6 +71,11 @@ export default {
         ...this.defaultOptions,
         ...(this.block?.options || {}),
       };
+    },
+  },
+  methods: {
+    exportExcel(data) {
+      this.$emit("exportExcel", data);
     },
   },
 };

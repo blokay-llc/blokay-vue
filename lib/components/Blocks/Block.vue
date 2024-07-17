@@ -34,15 +34,16 @@
                 }
               : null
           "
+          @exportExcel="downloadExcel"
         />
       </template>
     </div>
   </div>
 </template>
 <script>
+import { defineAsyncComponent } from "vue";
 import useApi from "../../common/blokay.service";
 import BlockForm from "./BlockForm.vue";
-import BlockResponse from "./BlockResponse.vue";
 import { Loader } from "../DS/Index";
 
 export default {
@@ -96,7 +97,7 @@ export default {
   },
   components: {
     BlockForm,
-    BlockResponse,
+    BlockResponse: defineAsyncComponent(() => import("./BlockResponse.vue")),
     Loader,
   },
   data() {
@@ -191,6 +192,37 @@ export default {
         .finally(() => {
           this.loading = false;
         });
+    },
+    downloadExcel() {
+      this.loading = true;
+      let data = {
+        blockId: this.block.id,
+        form: this.form,
+      };
+      this.api
+        .blockExecExcel(data, this.jwt)
+        .then((result) => {
+          this.saveData(result, `${this.block.description}.xlsx`);
+        })
+        .catch((error) => {
+          this.exception = error;
+        })
+        .finally(() => {
+          this.loading = false;
+        });
+    },
+    saveData(data, fileName) {
+      let a = document.createElement("a");
+      document.body.appendChild(a);
+      a.style = "display: none";
+
+      let url = window.URL.createObjectURL(data);
+
+      a.href = url;
+      a.download = fileName;
+      a.target = "_blank";
+      a.click();
+      window.URL.revokeObjectURL(url);
     },
   },
   mounted() {

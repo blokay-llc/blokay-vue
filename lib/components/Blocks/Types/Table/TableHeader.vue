@@ -36,13 +36,13 @@
       </div>
 
       <Button
-        v-if="canExport && data.data.length"
+        v-if="canExport && data.data.length && onExport"
         variant="secondary"
         type="button"
         size="xs"
         icon="download"
         text="Export"
-        :onClick="() => generateCSV()"
+        :onClick="() => onExport && onExport()"
       />
 
       <Button
@@ -196,6 +196,10 @@ export default {
   name: "TableHeader",
   props: {
     onBack: {
+      type: Function,
+      default: null,
+    },
+    onExport: {
       type: Function,
       default: null,
     },

@@ -14,6 +14,7 @@
       :canExport="options.canExport"
       :canFilter="options.canFilter"
       :showSearchBar="options.showSearchBar"
+      :onExport="onExport"
     />
 
     <div class="bl-table">
@@ -40,7 +41,7 @@
               :showAll="
                 () => {
                   setTextAll(td);
-                  modalShowTextRef.current.showModal();
+                  $refs.modalShowTextRef.show();
                 }
               "
             />
@@ -273,6 +274,9 @@ export default {
     },
     setTextAll(textAll) {
       this.textAll = textAll;
+    },
+    onExport(data) {
+      this.$emit("exportExcel", data);
     },
   },
 };
