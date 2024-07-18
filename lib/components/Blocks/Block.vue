@@ -156,6 +156,7 @@ export default {
         });
     },
     execBlock(n, extraForm = {}) {
+      if (!n?.id) return;
       const errorsTmp = {};
 
       if (n.filters?.fields) {

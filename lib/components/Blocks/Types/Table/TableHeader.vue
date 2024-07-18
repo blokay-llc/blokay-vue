@@ -80,6 +80,7 @@
           <div class="bl-col-span-4">
             <select
               label="Column"
+              class="bl-app-input"
               :value="item.col"
               @change="
                 (e) => {
@@ -101,6 +102,7 @@
           <div class="bl-col-span-3">
             <select
               label="Condition"
+              class="bl-app-input"
               :value="item.cond"
               @change="
                 (e) => {
@@ -125,10 +127,11 @@
               @change="
                 (e) => {
                   const newFilters = { ...this.filters };
-                  newFilters.fields[index].value = e.target.value;
+                  newFilters.fields[index].value = e.target.value.toLowerCase();
                   setFilters(newFilters);
                 }
               "
+              class="bl-app-input"
               type="text"
             />
           </div>

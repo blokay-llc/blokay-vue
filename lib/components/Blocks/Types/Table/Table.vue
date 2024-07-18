@@ -101,7 +101,8 @@ const sortTypes = (a, b) => {
 const handleSearch = (toSearch) => {
   return (item) => {
     for (let j = 0; j < item.length; j++) {
-      const str = ("" + item[j]).toLowerCase();
+      let val = item[j]?.text || item[j];
+      const str = ("" + val).toLowerCase();
       if (str.includes(toSearch)) {
         return true;
       }
@@ -114,18 +115,27 @@ const handleFilters = (filters) => {
   return (item) => {
     for (let j = 0; j < filters.length; j++) {
       const filter = filters[j];
-      const val = item[filter.col]?.text || item[filter.col];
-      if (filter.cond == "=" && item[filter.col] != filter.value) {
+      let columnValue = item[filter.col]?.text || item[filter.col];
+      columnValue = ("" + columnValue).toLowerCase();
+      const filterValue = filter.value;
+
+      if (filter.cond == "=" && columnValue != filterValue) {
         return false;
-      } else if (filter.cond == "!=" && val == filter.value) {
+      } else if (filter.cond == "!=" && columnValue == filterValue) {
         return false;
-      } else if (filter.cond == ">" && val < filter.value) {
+      } else if (filter.cond == ">" && columnValue <= filterValue) {
         return false;
-      } else if (filter.cond == "<" && val > filter.value) {
+      } else if (filter.cond == "<" && columnValue >= filterValue) {
         return false;
-      } else if (filter.cond == "contains" && !val.includes(filter.value)) {
+      } else if (
+        filter.cond == "contains" &&
+        !columnValue.includes(filterValue)
+      ) {
         return false;
-      } else if (filter.cond == "not_contains" && val.includes(filter.value)) {
+      } else if (
+        filter.cond == "not_contains" &&
+        columnValue.includes(filterValue)
+      ) {
         return false;
       }
     }
