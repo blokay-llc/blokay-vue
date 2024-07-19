@@ -30,6 +30,17 @@
       }
     "
   />
+  <File
+    v-else-if="row.type === 'file'"
+    :label="row.label"
+    :preview="form[row.name]"
+    :classSelector="row.classSelector"
+    :endpoint="row.endpoint"
+    :size="row.size"
+    :onError="row.onError"
+    :onDone="row.onDone"
+    :onChangeFiles="row.onChangeFiles"
+  />
   <Input
     v-else
     :type="row.type"
