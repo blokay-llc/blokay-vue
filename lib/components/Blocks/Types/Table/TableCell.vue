@@ -35,12 +35,11 @@ export default {
   name: "TableCell",
   props: {
     td: { type: [String, Object, Number], default: () => {} },
-    eventsRef: { type: Object, default: () => {} },
     showAll: { type: Function, default: () => {} },
   },
   methods: {
     clickButton(td) {
-      td.click && this.eventsRef[td.click](td.args);
+      this.$emit("callEvent", { click: td.click, td: td.args });
     },
   },
 };

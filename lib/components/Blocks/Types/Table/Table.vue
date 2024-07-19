@@ -38,7 +38,7 @@
                 v-for="(td, k) in row"
                 :key="'cell-' + k"
                 :td="td"
-                :eventsRef="$refs.eventsRef"
+                @callEvent="callEvent"
                 :showAll="
                   () => {
                     setTextAll(td);
@@ -273,6 +273,9 @@ export default {
     };
   },
   methods: {
+    callEvent(td) {
+      td.click && this.$refs.eventsRef[td.click](td.args);
+    },
     setPage(page) {
       this.page = page;
     },
