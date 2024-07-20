@@ -16,7 +16,7 @@
     </template>
 
     <template v-else>
-      <template v-if="td.length > 50">
+      <template v-if="typeof td == 'string' && td.length > 50">
         <div>
           <div>{{ ("" + td).substring(0, 50) }}...</div>
           <div class="bl-table-show-all" @click="() => showAll(td)">
@@ -30,7 +30,7 @@
     </template>
   </td>
 </template>
-<script>
+<script lang="ts">
 export default {
   name: "TableCell",
   props: {
@@ -38,7 +38,7 @@ export default {
     showAll: { type: Function, default: () => {} },
   },
   methods: {
-    clickButton(td) {
+    clickButton(td: any) {
       this.$emit("callEvent", { click: td.click, args: td.args });
     },
   },

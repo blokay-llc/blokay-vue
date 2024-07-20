@@ -2,7 +2,7 @@
   <LineChart :chartData="dataComputed" :options="optionsComputed" />
 </template>
 
-<script>
+<script lang="ts">
 import { DoughnutChart } from "vue-chart-3";
 import { Chart, registerables } from "chart.js";
 Chart.register(...registerables);
@@ -43,7 +43,7 @@ export default {
       let colorsTmp = this.options?.colors || colors;
       return {
         labels: this.data.labels,
-        datasets: this.data.datasets.map((row, index) => ({
+        datasets: this.data.datasets.map((row: any, index: number) => ({
           pointBorderColor: colorsTmp[index],
           label: row.label,
           data: row.vals,

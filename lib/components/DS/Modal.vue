@@ -59,7 +59,7 @@
   </Teleport>
 </template>
 
-<script>
+<script lang="ts">
 export default {
   name: "Modal",
   props: {
@@ -69,7 +69,7 @@ export default {
     size: { required: false, default: "md", type: String },
     clickBack: { required: false, default: null },
     bgColor: { required: false, default: "white", type: String },
-    onConfirmClose: { required: false, default: null },
+    onConfirmClose: { type: Function, required: false, default: null },
   },
   data() {
     return {
@@ -78,7 +78,7 @@ export default {
     };
   },
   mounted() {
-    const escFunction = (event) => {
+    const escFunction = (event: any) => {
       if (event.key === "Escape") {
         this.tryClose();
       }
@@ -87,12 +87,13 @@ export default {
   },
   methods: {
     goToTop() {
-      this.$refs.bodyModal.scrollTo(0, 0);
+      let bodyModal: any = this.$refs.bodyModal;
+      bodyModal.scrollTo(0, 0);
     },
     clear() {
       this.error = null;
     },
-    setError(err) {
+    setError(err: any) {
       this.error = err;
     },
     show() {
@@ -105,7 +106,7 @@ export default {
     },
     tryClose() {
       if (this.onConfirmClose) {
-        this.onConfirmClose && this.onConfirmClose();
+        this.onConfirmClose();
       } else {
         this.hide();
       }

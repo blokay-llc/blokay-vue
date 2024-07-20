@@ -5,7 +5,7 @@
         <div
           v-if="onBack && !autoExecuted"
           class="bl-back-button"
-          @click="onBack"
+          @click="() => onBack()"
         >
           <Icon icon="left" class="bl-icon" />
         </div>
@@ -83,8 +83,8 @@
               class="bl-app-input"
               :value="item.col"
               @change="
-                (e) => {
-                  const newFilters = { ...this.filters };
+                (e:any) => {
+                  const newFilters = { ...filters };
                   newFilters.fields[index].col = e.target.value;
                   setFilters(newFilters);
                 }
@@ -105,8 +105,8 @@
               class="bl-app-input"
               :value="item.cond"
               @change="
-                (e) => {
-                  const newFilters = { ...this.filters };
+                (e:any) => {
+                  const newFilters = { ...filters };
                   newFilters.fields[index].cond = e.target.value;
                   setFilters(newFilters);
                 }
@@ -125,8 +125,8 @@
               label="Value"
               :value="item.value"
               @change="
-                (e) => {
-                  const newFilters = { ...this.filters };
+                (e:any) => {
+                  const newFilters = { ...filters };
                   newFilters.fields[index].value = e.target.value.toLowerCase();
                   setFilters(newFilters);
                 }
@@ -144,8 +144,8 @@
               :onClick="
                 () => {
                   let newFilters = {
-                    ...this.filters,
-                    fields: [...this.filters.fields],
+                    ...filters,
+                    fields: [...filters.fields],
                   };
                   newFilters.fields.splice(index, 1);
                   setFilters(newFilters);
@@ -165,7 +165,7 @@
         @click="
           () => {
             setFilters({
-              ...this.filters,
+              ...filters,
               fields: [...filters.fields, { cond: '=', value: '', col: 0 }],
             });
           }
@@ -174,13 +174,13 @@
     </Modal>
   </div>
 </template>
-<script>
+<script lang="ts">
 import Button from "../../../DS/Form/Button.vue";
 import Input from "../../../DS/Form/Input.vue";
 import Icon from "../../../DS/Icon.vue";
 import Modal from "../../../DS/Modal.vue";
 
-const download = (file, filename) => {
+const download = (file: any, filename: string) => {
   const blob = new Blob([file], { type: "text/csv;charset=utf-8;" });
 
   const link = document.createElement("a");
@@ -273,13 +273,14 @@ export default {
       download(csvContent, `${encodeURIComponent(this.blockName)}.csv`);
     },
     clickFilter() {
-      this.$refs.modalFilter.show();
+      let ref: any = this.$refs.modalFilter;
+      ref.show();
     },
   },
   computed: {
     FileExportContent() {
-      const dataTable = this.data.data.map((row) => {
-        return row.map((col) => {
+      const dataTable = this.data.data.map((row: any) => {
+        return row.map((col: any) => {
           if (typeof col == "object") {
             return col.text || "";
           }

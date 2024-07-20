@@ -7,7 +7,7 @@
     </td>
   </tr>
 </template>
-<script>
+<script lang="ts">
 export default {
   props: {
     data: { type: Array, default: () => [] },
@@ -16,7 +16,7 @@ export default {
     footerRowVals() {
       if (!this.data?.length) return { sum: [] };
       let actived = false;
-      const sumArray = Array(this.data[0].length).fill(null);
+      const sumArray: any = Array(this.data[0].length).fill(null);
       for (const row of this.data) {
         for (const index in row) {
           const val = row[index];
@@ -37,7 +37,7 @@ export default {
       }
 
       if (!actived) return [];
-      return sumArray.map((item) => {
+      return sumArray.map((item: any) => {
         if (!item) return null;
         let val = item.val;
         if (item.type == "money") {

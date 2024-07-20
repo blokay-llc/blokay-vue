@@ -39,7 +39,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import Icon from "../../../DS/Icon.vue";
 import Select from "../../../DS/Form/Select.vue";
 

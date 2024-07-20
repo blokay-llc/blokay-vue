@@ -56,7 +56,7 @@
     "
   />
 </template>
-<script>
+<script lang="ts">
 import Input from "../DS/Form/Input.vue";
 import Select from "../DS/Form/Select.vue";
 import Textarea from "../DS/Form/Textarea.vue";

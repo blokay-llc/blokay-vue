@@ -54,7 +54,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import Icon from "../../DS/Icon.vue";
 import Loader from "../../DS/Loader.vue";
 import useApi from "../../../common/blokay.service";
@@ -124,10 +124,10 @@ export default {
     },
   },
   methods: {
-    setLoading(loading) {
+    setLoading(loading: boolean) {
       this.loading = loading;
     },
-    setPrev(file) {
+    setPrev(file: string) {
       this.prev = file;
     },
     ext() {
@@ -135,7 +135,7 @@ export default {
       return file ? file.split(".").pop() || "" : "";
     },
     onChange() {
-      const el = document.getElementById(this.id);
+      const el: any = document.getElementById(this.id);
       const list = el.files;
       if (list.length > 0) {
         this.setLoading(true);

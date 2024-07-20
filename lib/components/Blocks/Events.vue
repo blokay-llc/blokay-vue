@@ -5,27 +5,31 @@
       position="center"
       ref="modalRef"
       bgColor="transparent"
-      :onConfirmClose="hasChanges ? () => $refs.modalConfirmRef.show() : null"
+      :onConfirmClose="hasChanges ? () => {
+        let modalConfirmRef: any = $refs.modalConfirmRef;
+        modalConfirmRef.show();
+      } : null"
     >
       <BlockEvent
         v-if="subBlock.blockKey || subBlock.blockId"
         :jwt="jwt"
         :onChangeForm="
           () => {
-            setHasChanges(true);
+            setHasChanges();
           }
         "
-        :blockId="subBlock.blockId"
+        :blockId="subBlock.blockId || ''"
         :blockKey="subBlock.blockKey"
         :defaultForm="subBlock.form"
         :onExec="
-          (result) => {
+          (result:any) => {
             if (
               !result.type ||
               result.type == 'error' ||
               result.type == 'message'
             ) {
-              $refs.modalRef.hide();
+              let modalRef: any = $refs.modalRef;
+              modalRef.hide();
               onExecuted && onExecuted();
             }
           }
@@ -57,13 +61,14 @@
     </Modal>
   </div>
 </template>
-<script>
+<script lang="ts">
+import { defineComponent } from "vue";
 import { defineAsyncComponent } from "vue";
 // import BlockEvent from "./Block.vue";
 import Modal from "../DS/Modal.vue";
 import Button from "../DS/Form/Button.vue";
 
-export default {
+export default defineComponent({
   name: "EventsHandler",
   props: {
     onExecuted: {
@@ -92,17 +97,20 @@ export default {
   },
   methods: {
     closeBlock() {
-      this.$refs.modalRef.hide();
-      this.$refs.modalConfirmRef.hide();
+      let modalRef: any = this.$refs.modalRef;
+      let modalConfirmRef: any = this.$refs.modalConfirmRef;
+      modalRef.hide();
+      modalConfirmRef.hide();
       this.hasChanges = false;
     },
-    openBlock({ blockId, blockKey, form }) {
+    openBlock({ blockId, blockKey, form }: any) {
+      let modalRef: any = this.$refs.modalRef;
       this.subBlock = { blockId, blockKey, form };
-      this.$refs.modalRef.show();
+      modalRef.show();
     },
     setHasChanges() {
       this.hasChanges = true;
     },
   },
-};
+});
 </script>

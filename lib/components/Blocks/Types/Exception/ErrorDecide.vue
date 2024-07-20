@@ -9,8 +9,8 @@
     <ShowError v-else :type="error?.name" :message="error?.message" />
   </div>
 </template>
-<script>
-import ShowError from './ShowError.vue';
+<script lang="ts">
+import ShowError from "./ShowError.vue";
 export default {
   props: {
     error: Object,

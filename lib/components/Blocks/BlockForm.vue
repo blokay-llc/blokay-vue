@@ -34,7 +34,7 @@
     </div>
   </div>
 </template>
-<script>
+<script lang="ts">
 import BlockField from "./BlockFormField.vue";
 import Icon from "../DS/Icon.vue";
 import Button from "../DS/Form/Button.vue";

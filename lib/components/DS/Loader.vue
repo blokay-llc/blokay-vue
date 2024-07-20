@@ -7,13 +7,13 @@
     <div :key="x" v-for="x in 4"></div>
   </div>
 </template>
-<script>
+<script lang="ts">
 export default {
-  name: 'Loader',
+  name: "Loader",
   props: {
     size: {
       type: String,
-      default: 'md',
+      default: "md",
     },
   },
 };

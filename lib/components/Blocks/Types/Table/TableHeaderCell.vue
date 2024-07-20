@@ -17,7 +17,7 @@
     </div>
   </th>
 </template>
-<script>
+<script lang="ts">
 import Icon from "../../../DS/Icon.vue";
 export default {
   props: {

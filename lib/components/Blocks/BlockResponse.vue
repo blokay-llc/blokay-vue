@@ -14,8 +14,8 @@
     />
   </div>
 </template>
-<script>
-import { Table } from "./Types/Table/Index";
+<script lang="ts">
+// import { Table } from "./Types/Table/Table.vue";
 import Line from "./Types/ChartLine.vue";
 import Value from "./Types/Values.vue";
 import Exception from "./Types/Exception/Index.vue";
@@ -55,7 +55,7 @@ export default {
     },
   },
   components: {
-    Table,
+    // Table,
     Line,
     Value,
     Exception,
@@ -74,7 +74,7 @@ export default {
     },
   },
   methods: {
-    exportExcel(data) {
+    exportExcel(data: any) {
       this.$emit("exportExcel", data);
     },
   },

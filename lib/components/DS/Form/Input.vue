@@ -24,7 +24,7 @@
       {{ label }}
     </label>
     <input
-      @wheel="$event.target.blur()"
+      @wheel="(e:any) => e.target.blur()"
       :value="modelValue"
       @input="handleChange"
       class="bl-app-input bl-appearance-none"
@@ -50,11 +50,11 @@
     <div class="bl-input-error" v-if="error">{{ error }}</div>
   </div>
 </template>
-<script>
+<script lang="ts">
 import Icon from "../../DS/Icon.vue";
 export default {
   name: "Input",
-  emits: ["update:modelValue", "change"],
+  emits: ["update:modelValue", "change", "changeInput"],
   components: {
     Icon,
   },
@@ -64,7 +64,6 @@ export default {
       id: (Math.random() + 1).toString(36).substring(7),
     };
   },
-
   props: {
     options: { type: Array, default: null, required: false },
     icon: { type: String, required: false },
@@ -79,7 +78,7 @@ export default {
     error: { type: String, required: false, default: null },
   },
   methods: {
-    handleChange(e) {
+    handleChange(e: any) {
       let val = e.target.value;
       this.$emit("change", val);
       this.$emit("update:modelValue", val);
@@ -88,7 +87,7 @@ export default {
       let el = document.getElementById(this.id);
       el && el.focus();
     },
-    change(e) {
+    change(e: any) {
       let value = e.target.value;
       this.$emit("changeInput", value);
     },

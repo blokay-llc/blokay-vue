@@ -1,20 +1,20 @@
 import { postRequest, postMultimedia, postFile } from "./_base";
 
-export default function useApi(endpoint, session) {
-  const blockGet = async function ({ blockId = null, blockKey = null }) {
+export default function useApi(endpoint: string, session: any) {
+  const blockGet = async function ({ blockId = null, blockKey = null }: any) {
     const data = {
       blockId,
       blockKey,
     };
 
     try {
-      const result = await postRequest(
+      const result: any = await postRequest(
         endpoint + "brain/get",
         data,
         session.getJwtToken()
       );
       return result.data;
-    } catch (error) {
+    } catch (error: any) {
       console.log(error);
       if (error?.error == "Unauthorized") {
         session.logout();
@@ -22,19 +22,19 @@ export default function useApi(endpoint, session) {
     }
   };
 
-  const blockExec = async function (form, jwtToken) {
+  const blockExec = async function (form: any, jwtToken: string) {
     const data = {
       ...form,
     };
 
     try {
-      const result = await postRequest(
+      const result: any = await postRequest(
         endpoint + "brain/exec",
         data,
         jwtToken || session.getJwtToken()
       );
       return result.data;
-    } catch (error) {
+    } catch (error: any) {
       console.log(error);
       if (error?.error == "Unauthorized") {
         session.logout();
@@ -42,7 +42,7 @@ export default function useApi(endpoint, session) {
     }
   };
 
-  const blockExecExcel = async function (form, jwtToken) {
+  const blockExecExcel = async function (form: any, jwtToken: string) {
     const data = {
       ...form,
     };
@@ -54,7 +54,7 @@ export default function useApi(endpoint, session) {
         jwtToken || session.getJwtToken()
       );
       return result;
-    } catch (error) {
+    } catch (error: any) {
       console.log(error);
       if (error?.error == "Unauthorized") {
         session.logout();
@@ -62,12 +62,12 @@ export default function useApi(endpoint, session) {
     }
   };
 
-  const createSession = async function (form) {
+  const createSession = async function (form: any) {
     const data = {
       ...form,
     };
 
-    const result = await postRequest(
+    const result: any = await postRequest(
       endpoint + "brain/createSession",
       data,
       null
@@ -75,7 +75,7 @@ export default function useApi(endpoint, session) {
     return result.data;
   };
 
-  const sendFile = async function (path, formData) {
+  const sendFile = async function (path: string, formData: any) {
     formData.append("_token", session.getJwtToken());
     return await postMultimedia(endpoint + path, formData);
   };

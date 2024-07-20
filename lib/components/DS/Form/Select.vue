@@ -24,7 +24,6 @@
       {{ label }}
     </label>
     <select
-      @wheel="$event.target.blur()"
       :value="modelValue"
       @input="handleChange"
       class="bl-app-input bl-appearance-none"
@@ -34,13 +33,6 @@
       :id="id"
       :placeholder="placeholder || label"
       :disabled="disabled"
-      @keydown="
-        (evt) => {
-          type == 'number' &&
-            ['e', 'E', '+', '-'].includes(evt.key) &&
-            evt.preventDefault();
-        }
-      "
       @change="handleChange"
       onKeyDown=""
       @blur="activeInput = false"
@@ -51,11 +43,11 @@
     <div class="bl-input-error" v-if="error">{{ error }}</div>
   </div>
 </template>
-<script>
+<script lang="ts">
 import Icon from "../../DS/Icon.vue";
 export default {
   name: "Select",
-  emits: ["update:modelValue", "change"],
+  emits: ["update:modelValue", "change", "changeInput"],
   components: {
     Icon,
   },
@@ -79,7 +71,7 @@ export default {
     error: { type: String, required: false, default: null },
   },
   methods: {
-    handleChange(e) {
+    handleChange(e: any) {
       let val = e.target.value;
       this.$emit("change", val);
       this.$emit("update:modelValue", val);
@@ -88,7 +80,7 @@ export default {
       let el = document.getElementById(this.id);
       el && el.focus();
     },
-    change(e) {
+    change(e: any) {
       let value = e.target.value;
       this.$emit("changeInput", value);
     },

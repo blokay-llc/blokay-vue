@@ -41,7 +41,7 @@
     </div>
   </div>
 </template>
-<script>
+<script lang="ts">
 import { defineAsyncComponent } from "vue";
 import useApi from "../../common/blokay.service";
 import BlockForm from "./BlockForm.vue";
@@ -104,7 +104,7 @@ export default {
   data() {
     return {
       form: { ...this.defaultForm },
-      block: null,
+      block: null as any,
       response: null,
       loading: false,
       errors: {},
@@ -117,14 +117,14 @@ export default {
   },
 
   methods: {
-    setResponse(response) {
+    setResponse(response: any) {
       this.response = response;
     },
-    setFormInterceptor(form) {
+    setFormInterceptor(form: any) {
       this.setForm(form);
       this.onChangeForm && this.onChangeForm();
     },
-    setForm(form) {
+    setForm(form: any) {
       this.form = form;
     },
     getBlock() {
@@ -156,9 +156,9 @@ export default {
           this.loading = false;
         });
     },
-    execBlock(n, extraForm = {}) {
+    execBlock(n: any, extraForm: any = {}) {
       if (!n?.id) return;
-      const errorsTmp = {};
+      const errorsTmp: any = {};
 
       if (n.filters?.fields) {
         for (const field of n.filters.fields) {
@@ -213,8 +213,8 @@ export default {
           this.loading = false;
         });
     },
-    saveData(data, fileName) {
-      let a = document.createElement("a");
+    saveData(data: any, fileName: string) {
+      let a: any = document.createElement("a");
       document.body.appendChild(a);
       a.style = "display: none";
 

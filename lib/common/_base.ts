@@ -1,5 +1,5 @@
 export const getOS = () => {
-  let os = null;
+  let os: string | null = null;
 
   const platform = window.navigator.platform,
     macosPlatforms = ["Macintosh", "MacIntel", "MacPPC", "Mac68K"],
@@ -21,10 +21,10 @@ export const getOS = () => {
 };
 
 export const postRequest = async function (
-  endpoint,
-  data,
-  jwtToken = null,
-  extraOpts = {}
+  endpoint: string,
+  data: any,
+  jwtToken: string | null = null,
+  extraOpts: any = {}
 ) {
   const opts = {
     method: "POST",
@@ -41,7 +41,7 @@ export const postRequest = async function (
 
   const rawResponse = await fetch(endpoint, opts);
 
-  let content = null;
+  let content: any = null;
   if (extraOpts.blob) {
     content = await rawResponse.blob();
   } else {
@@ -56,7 +56,7 @@ export const postRequest = async function (
   return content;
 };
 
-export const postMultimedia = async function (endpoint, form) {
+export const postMultimedia = async function (endpoint: string, form: any) {
   const opts = {
     method: "POST",
     headers: {},
@@ -71,7 +71,11 @@ export const postMultimedia = async function (endpoint, form) {
   return content;
 };
 
-export const postFile = async function (endpoint, data, jwtToken = null) {
+export const postFile = async function (
+  endpoint: string,
+  data: any,
+  jwtToken: string | null = null
+) {
   const opts = {
     method: "POST",
     headers: {

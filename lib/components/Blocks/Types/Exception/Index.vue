@@ -18,8 +18,8 @@
     </Modal>
   </div>
 </template>
-<script>
-import ErrorDecide from './ErrorDecide.vue';
+<script lang="ts">
+import ErrorDecide from "./ErrorDecide.vue";
 export default {
   props: {
     data: Object,

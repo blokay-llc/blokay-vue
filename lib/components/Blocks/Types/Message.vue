@@ -4,7 +4,7 @@
     <div>{{ data.message }}</div>
   </div>
 </template>
-<script>
+<script lang="ts">
 export default {
   name: "Message",
   props: {

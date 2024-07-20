@@ -6,16 +6,16 @@
     :disabled="disabled"
     v-bind="propsComputed"
     :class="{
-      'bl-size-lg': this.size === 'lg',
-      'bl-size-md': this.size === 'md',
-      'bl-size-sm': this.size === 'sm',
-      'bl-size-xs': this.size === 'xs',
+      'bl-size-lg': size === 'lg',
+      'bl-size-md': size === 'md',
+      'bl-size-sm': size === 'sm',
+      'bl-size-xs': size === 'xs',
 
-      'bl-btn-disabled': this.disabled,
-      'bl-btn-primary': this.variant === 'primary',
-      'bl-btn-secondary': this.variant === 'secondary',
-      'bl-btn-third': this.variant === 'third',
-      'bl-btn-neutral': this.variant === 'neutral',
+      'bl-btn-disabled': disabled,
+      'bl-btn-primary': variant === 'primary',
+      'bl-btn-secondary': variant === 'secondary',
+      'bl-btn-third': variant === 'third',
+      'bl-btn-neutral': variant === 'neutral',
       'bl-btn': true,
     }"
   >
@@ -37,7 +37,7 @@
   </component>
 </template>
 
-<script>
+<script lang="ts">
 import Loader from "../Loader.vue";
 import Icon from "../Icon.vue";
 
@@ -70,7 +70,7 @@ export default {
     },
 
     propsComputed() {
-      const propsObj = { type: this.type || "button" };
+      const propsObj: any = { type: this.type || "button" };
       if (this.href) propsObj.href = this.href;
       if (this.to) propsObj.to = this.to;
       return propsObj;

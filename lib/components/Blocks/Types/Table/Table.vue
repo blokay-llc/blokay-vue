@@ -75,7 +75,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import TableCell from "./TableCell.vue";
 import TableFooter from "./TableFooter.vue";
 import TableHeaderCell from "./TableHeaderCell.vue";
@@ -84,7 +84,7 @@ import TableFooterRow from "./TableFooterRow.vue";
 import Modal from "../../../DS/Modal.vue";
 import Events from "../../Events.vue";
 
-const sortTypes = (a, b) => {
+const sortTypes = (a: any, b: any) => {
   if (typeof a == "string" && typeof b == "string") {
     a = a.toLowerCase();
     b = b.toLowerCase();
@@ -98,8 +98,8 @@ const sortTypes = (a, b) => {
   return a - b;
 };
 
-const handleSearch = (toSearch) => {
-  return (item) => {
+const handleSearch = (toSearch: string) => {
+  return (item: any) => {
     for (let j = 0; j < item.length; j++) {
       let val = item[j]?.text || item[j];
       const str = ("" + val).toLowerCase();
@@ -111,8 +111,8 @@ const handleSearch = (toSearch) => {
   };
 };
 
-const handleFilters = (filters) => {
-  return (item) => {
+const handleFilters = (filters: any) => {
+  return (item: any) => {
     for (let j = 0; j < filters.length; j++) {
       const filter = filters[j];
       let columnValue = item[filter.col]?.text || item[filter.col];
@@ -143,8 +143,8 @@ const handleFilters = (filters) => {
   };
 };
 
-const handleSort = (criteria, valCriteria) => {
-  return (a, b) => {
+const handleSort = (criteria: string, valCriteria: string) => {
+  return (a: any, b: any) => {
     const val1 =
       typeof a[criteria] == "object" ? a[criteria]?.text : a[criteria];
     const val2 =
@@ -231,7 +231,7 @@ export default {
       const content = this.contentComputed;
       if (this.PER_PAGE == Number.MAX_SAFE_INTEGER) return content;
 
-      const arr = [];
+      const arr: any = [];
       const from = (this.page - 1) * this.PER_PAGE;
       const until = from + this.PER_PAGE;
       for (let i = from; i < until; i++) {
@@ -273,25 +273,26 @@ export default {
     };
   },
   methods: {
-    callEvent(td) {
-      td.click && this.$refs.eventsRef[td.click](td.args);
+    callEvent(td: any) {
+      let ref: any = this.$refs.eventsRef;
+      td.click && ref[td.click](td.args);
     },
-    setPage(page) {
+    setPage(page: number) {
       this.page = page;
     },
-    setPerPage(perPage) {
+    setPerPage(perPage: number) {
       this.PER_PAGE = perPage;
     },
-    setSort(sort) {
+    setSort(sort: any) {
       this.sort = sort;
     },
-    setFilters(filters) {
+    setFilters(filters: any) {
       this.filters = filters;
     },
-    setTextAll(textAll) {
+    setTextAll(textAll: string) {
       this.textAll = textAll;
     },
-    onExport(data) {
+    onExport(data: any) {
       this.$emit("exportExcel", data);
     },
   },

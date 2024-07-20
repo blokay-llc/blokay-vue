@@ -15,7 +15,7 @@
     </div>
   </div>
 </template>
-<script>
+<script lang="ts">
 export default {
   props: {
     title: { type: String, default: "" },
@@ -23,7 +23,7 @@ export default {
   },
   computed: {
     values() {
-      const arr = [];
+      const arr: any = [];
       for (const index in this.data) {
         arr.push({ label: index, value: this.data[index] });
       }
