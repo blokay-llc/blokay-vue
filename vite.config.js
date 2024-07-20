@@ -2,7 +2,6 @@ import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 import { resolve } from "path";
 import dts from "vite-plugin-dts";
-import * as path from "path";
 import tailwindcss from "tailwindcss";
 import cssInjectedByJsPlugin from "vite-plugin-css-injected-by-js";
 
@@ -14,7 +13,7 @@ export default defineConfig({
       fileName: `blokay`,
     },
     rollupOptions: {
-      external: ["vue", "tailwindcss"],
+      external: ["vue", "tailwindcss", "chart.js", "vue-chart-3"],
       output: {
         globals: {
           vue: "Vue",
