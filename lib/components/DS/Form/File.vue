@@ -104,7 +104,7 @@ export default {
       loading: false,
       prev: "",
       id: (Math.random() + 1).toString(36).substring(7),
-      api: useApi("http://localhost:8082/api/", {
+      api: useApi("https://app.blokay.com/api/", {
         getJwtToken: () => this.jwt,
       }),
     };

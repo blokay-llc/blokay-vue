@@ -110,7 +110,7 @@ export default {
       errors: {},
       exception: null,
       autoexecuted: false,
-      api: useApi("http://localhost:8082/api/", {
+      api: useApi("https://app.blokay.com/api/", {
         getJwtToken: () => this.jwt,
       }),
     };
