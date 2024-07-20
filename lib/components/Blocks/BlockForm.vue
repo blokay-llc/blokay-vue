@@ -34,47 +34,42 @@
     </div>
   </div>
 </template>
-<script lang="ts">
+<script lang="ts" setup>
 import BlockField from "./BlockFormField.vue";
 import Icon from "../DS/Icon.vue";
 import Button from "../DS/Form/Button.vue";
-export default {
-  name: "BlockForm",
-  props: {
-    block: {
-      type: Object,
-      required: true,
-    },
-    form: {
-      type: Object,
-      required: true,
-    },
-    errors: {
-      type: Object,
-      required: true,
-    },
-    setForm: {
-      type: Function,
-      required: true,
-    },
-    onBack: {
-      type: Function,
-      default: null,
-    },
-    jwt: {
-      type: String,
-      required: true,
-    },
+
+const emit = defineEmits(['execBlock'])
+
+const props = defineProps({
+  onBack: {
+    type: Function,
+    default: null,
   },
-  components: {
-    BlockField,
-    Button,
-    Icon,
+  block: {
+    type: Object,
+    required: true,
   },
-  methods: {
-    execBlock() {
-      this.$emit("execBlock", this.block);
-    },
+  form: {
+    type: Object,
+    required: true,
   },
-};
+  errors: {
+    type: Object,
+    required: true,
+  },
+  setForm: {
+    type: Function,
+    required: true,
+  },
+  jwt: {
+    type: String,
+    required: true,
+  },
+})
+
+function execBlock() {
+  emit('execBlock', props.block)
+}
+
 </script>

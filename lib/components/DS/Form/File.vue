@@ -152,7 +152,6 @@ export default {
             }
           })
           .catch((err) => {
-            console.error(err);
             this.onError && this.onError(err);
           })
           .finally(() => {

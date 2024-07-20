@@ -42,7 +42,6 @@
   </div>
 </template>
 <script lang="ts">
-import { defineAsyncComponent } from "vue";
 import useApi from "../../common/blokay.service";
 import BlockForm from "./BlockForm.vue";
 import BlockResponse from "./BlockResponse.vue";

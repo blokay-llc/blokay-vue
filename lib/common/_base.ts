@@ -64,9 +64,7 @@ export const postMultimedia = async function (endpoint: string, form: any) {
   };
 
   const rawResponse = await fetch(endpoint, opts);
-  console.log(rawResponse);
   const content = await rawResponse.json();
-  console.log(content);
   if (rawResponse.status != 200) throw content;
   return content;
 };
