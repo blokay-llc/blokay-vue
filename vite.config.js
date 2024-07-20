@@ -11,7 +11,7 @@ export default defineConfig({
     lib: {
       entry: resolve(__dirname, "./lib/index.ts"),
       name: "vue-beautiful-timeline",
-      fileName: (format) => `index.${format}.js`,
+      fileName: `blokay`,
     },
     rollupOptions: {
       external: ["vue", "tailwindcss"],
@@ -29,11 +29,6 @@ export default defineConfig({
   css: {
     postcss: {
       plugins: [tailwindcss],
-    },
-  },
-  resolve: {
-    alias: {
-      "@": path.resolve(__dirname, "src"),
     },
   },
 });
