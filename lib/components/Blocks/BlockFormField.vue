@@ -40,6 +40,7 @@
     :onError="row.onError"
     :onDone="row.onDone"
     :onChangeFiles="row.onChangeFiles"
+    :jwt="jwt"
   />
   <Input
     v-else
@@ -59,6 +60,7 @@
 import Input from "../DS/Form/Input.vue";
 import Select from "../DS/Form/Select.vue";
 import Textarea from "../DS/Form/Textarea.vue";
+import File from "../DS/Form/File.vue";
 
 export default {
   name: "BlockField",
@@ -79,11 +81,16 @@ export default {
       type: Function,
       required: true,
     },
+    jwt: {
+      type: String,
+      required: true,
+    },
   },
   components: {
     Input,
     Select,
     Textarea,
+    File,
     // File,
   },
 };

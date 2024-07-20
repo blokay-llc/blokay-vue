@@ -17,6 +17,7 @@
           :setForm="setFormInterceptor"
           :errors="errors"
           @execBlock="execBlock"
+          :jwt="jwt"
         />
 
         <BlockResponse
@@ -109,7 +110,7 @@ export default {
       errors: {},
       exception: null,
       autoexecuted: false,
-      api: useApi("https://app.blokay.com/api/", {
+      api: useApi("http://localhost:8082/api/", {
         getJwtToken: () => this.jwt,
       }),
     };

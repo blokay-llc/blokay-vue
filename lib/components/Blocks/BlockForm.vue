@@ -19,6 +19,7 @@
           :form="form"
           :errors="errors"
           :setForm="setForm"
+          :jwt="jwt"
         />
       </div>
     </div>
@@ -59,6 +60,10 @@ export default {
     onBack: {
       type: Function,
       default: null,
+    },
+    jwt: {
+      type: String,
+      required: true,
     },
   },
   components: {

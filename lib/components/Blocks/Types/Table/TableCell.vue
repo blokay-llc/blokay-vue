@@ -39,7 +39,7 @@ export default {
   },
   methods: {
     clickButton(td) {
-      this.$emit("callEvent", { click: td.click, td: td.args });
+      this.$emit("callEvent", { click: td.click, args: td.args });
     },
   },
 };

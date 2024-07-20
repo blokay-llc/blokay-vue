@@ -6,28 +6,26 @@
       classSelector: true,
     }"
   >
-    <input type="file" class="bl-hidden" id="id" @change="onChange" />
+    <input type="file" class="bl-hidden" :id="id" @change="onChange" />
 
     <label :for="id" class="bl-items-center bl-gap-3 bl-cursor-pointer bl-flex">
       <div class="bl-prev">
-        <Loader v-if="loading" class="bl-mx-auto bl-px-3" size="sm" />;
+        <Loader v-if="loading" class="bl-mx-auto bl-px-3" size="sm" />
 
         <img
-          v-if="previewImage()"
-          :src="previewImage()"
+          v-else-if="previewImage"
+          :src="previewImage"
           alt="preview"
-          class="bl-rounded-lg bl-mx-auto size-[50px]"
+          class="bl-rounded-lg bl-mx-auto bl-max-w-[50px] bl-max-h-[50px]"
         />
-
         <Icon
-          v-if="ext() === 'pdf'"
+          v-else-if="ext() === 'pdf'"
           icon="pdf"
           class="bl-h-10 bl-fill-neutral-800 dark:bl-fill-neutral-200"
         />
-
         <Icon
           icon="excel"
-          v-if="['csv', 'xls', 'xlsx'].includes(ext())"
+          v-else-if="['csv', 'xls', 'xlsx'].includes(ext())"
           class="bl-h-10 bl-fill-neutral-800 dark:bl-fill-neutral-200"
         />
         <Icon
@@ -59,6 +57,7 @@
 <script>
 import Icon from "../../DS/Icon.vue";
 import Loader from "../../DS/Loader.vue";
+import useApi from "../../../common/blokay.service";
 
 export default {
   name: "File",
@@ -95,11 +94,19 @@ export default {
       type: Function,
       default: () => {},
     },
+    jwt: {
+      type: String,
+      default: "",
+    },
   },
   data() {
     return {
       loading: false,
       prev: "",
+      id: (Math.random() + 1).toString(36).substring(7),
+      api: useApi("http://localhost:8082/api/", {
+        getJwtToken: () => this.jwt,
+      }),
     };
   },
   components: {
@@ -108,9 +115,9 @@ export default {
   },
   computed: {
     previewImage() {
-      const file = prev || preview || "";
+      const file = this.prev || this.preview || "";
 
-      if (["png", "jpeg", "jpg", "bmp", "webp"].includes(ext())) {
+      if (["png", "jpeg", "jpg", "bmp", "webp"].includes(this.ext())) {
         return file;
       }
       return "";
@@ -124,31 +131,32 @@ export default {
       this.prev = file;
     },
     ext() {
-      const file = prev || preview;
+      const file = this.prev || this.preview;
       return file ? file.split(".").pop() || "" : "";
     },
     onChange() {
-      const el = document.getElementById(id);
+      const el = document.getElementById(this.id);
       const list = el.files;
       if (list.length > 0) {
-        setLoading(true);
+        this.setLoading(true);
         const formData = new FormData();
         formData.append("file", list[0]);
 
-        return api
-          .sendFile(endpoint, formData)
-          .then(() => {
-            onDone && onDone(result);
+        return this.api
+          .sendFile(this.endpoint, formData)
+          .then((result) => {
+            this.onDone && this.onDone(result);
             if (result.data.Resource) {
-              setPrev(result.data.Resource.preview);
-              onChangeFiles && onChangeFiles(result.data.Resource);
+              this.setPrev(result.data.Resource.preview);
+              this.onChangeFiles && this.onChangeFiles(result.data.Resource);
             }
           })
           .catch((err) => {
-            onError && onError(err);
+            console.error(err);
+            this.onError && this.onError(err);
           })
           .finally(() => {
-            setLoading(false);
+            this.setLoading(false);
           });
       }
     },
