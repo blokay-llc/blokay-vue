@@ -66,8 +66,7 @@
 </template>
 <script lang="ts">
 import { defineComponent } from "vue";
-import { defineAsyncComponent } from "vue";
-// import BlockEvent from "./Block.vue";
+import BlockEvent from "./Block.vue";
 import Modal from "../DS/Modal.vue";
 import Button from "../DS/Form/Button.vue";
 
@@ -84,7 +83,6 @@ export default defineComponent({
     },
   },
   components: {
-    BlockEvent: defineAsyncComponent(() => import("./Block.vue")),
     Modal,
     Button,
   },
@@ -97,6 +95,10 @@ export default defineComponent({
       },
       hasChanges: false,
     };
+  },
+  beforeCreate: function () {
+    let options: any = this.$options;
+    options.components.BlockEvent = BlockEvent;
   },
   methods: {
     closeBlock() {

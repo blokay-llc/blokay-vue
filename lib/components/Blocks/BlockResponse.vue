@@ -15,7 +15,7 @@
   </div>
 </template>
 <script lang="ts">
-// import { Table } from "./Types/Table/Table.vue";
+import Table from "./Types/Table/Table.vue";
 import Line from "./Types/ChartLine.vue";
 import Value from "./Types/Values.vue";
 import Exception from "./Types/Exception/Index.vue";
@@ -55,7 +55,7 @@ export default {
     },
   },
   components: {
-    // Table,
+    Table,
     Line,
     Value,
     Exception,

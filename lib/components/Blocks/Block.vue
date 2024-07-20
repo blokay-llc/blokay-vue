@@ -45,6 +45,7 @@
 import { defineAsyncComponent } from "vue";
 import useApi from "../../common/blokay.service";
 import BlockForm from "./BlockForm.vue";
+import BlockResponse from "./BlockResponse.vue";
 import { Loader } from "../DS/Index";
 
 export default {
@@ -98,7 +99,6 @@ export default {
   },
   components: {
     BlockForm,
-    BlockResponse: defineAsyncComponent(() => import("./BlockResponse.vue")),
     Loader,
   },
   data() {
@@ -115,7 +115,10 @@ export default {
       }),
     };
   },
-
+  beforeCreate: function () {
+    let options: any = this.$options;
+    options.components.BlockResponse = BlockResponse;
+  },
   methods: {
     setResponse(response: any) {
       this.response = response;

@@ -77,6 +77,7 @@
 </template>
 
 <script lang="ts">
+import { defineComponent } from "vue";
 import TableCell from "./TableCell.vue";
 import TableFooter from "./TableFooter.vue";
 import TableHeaderCell from "./TableHeaderCell.vue";
@@ -157,7 +158,7 @@ const handleSort = (criteria: string, valCriteria: string) => {
   };
 };
 
-export default {
+export default defineComponent({
   name: "Table",
   props: {
     data: {
@@ -297,5 +298,5 @@ export default {
       this.$emit("exportExcel", data);
     },
   },
-};
+});
 </script>
