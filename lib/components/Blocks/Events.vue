@@ -8,7 +8,7 @@
       :onConfirmClose="hasChanges ? () => {
         let modalConfirmRef: any = $refs.modalConfirmRef;
         modalConfirmRef.show();
-      } : null"
+      } : undefined"
     >
       <BlockEvent
         v-if="subBlock.blockKey || subBlock.blockId"
@@ -44,7 +44,10 @@
         <div class="flex items-center gap-5">
           <Button
             text="No, cancel"
-            @click="() => $refs.modalConfirmRef.hide()"
+            @click="() => {
+              let modalConfirmRef: any = $refs.modalConfirmRef;
+              modalConfirmRef.hide();
+            }"
             variant="secondary"
             class="w-full"
             size="md"

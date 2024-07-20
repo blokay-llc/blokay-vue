@@ -9,7 +9,7 @@
         :filters="filters"
         :data="data"
         :setPage="setPage"
-        :setFilters="(f) => (filters = f)"
+        :setFilters="(f:any) => (filters = f)"
         :onReload="onReload"
         :showTitle="options.showTitle"
         :canExport="options.canExport"
@@ -42,7 +42,8 @@
                 :showAll="
                   () => {
                     setTextAll(td);
-                    $refs.modalShowTextRef.show();
+                    let ref: any = $refs.modalShowTextRef;
+                    ref.show();
                   }
                 "
               />
@@ -58,7 +59,7 @@
         :perPage="PER_PAGE"
         :pagesCount="pagesCount"
         :setPerPage="setPerPage"
-        :setPage="(p) => (page = p)"
+        :setPage="(p:number) => (page = p)"
         :page="page"
       />
     </div>
@@ -262,7 +263,7 @@ export default {
   },
   data() {
     return {
-      sort: null,
+      sort: null as any,
       filters: {
         search: "",
         fields: [],

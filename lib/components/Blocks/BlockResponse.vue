@@ -38,7 +38,7 @@ export default {
       required: false,
     },
     onBack: {
-      type: Function,
+      types: [Function, null],
       required: false,
     },
     autoExecuted: {

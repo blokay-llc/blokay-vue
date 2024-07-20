@@ -8,16 +8,21 @@
   </tr>
 </template>
 <script lang="ts">
+import { money } from "../../../../common/functions";
 export default {
   props: {
     data: { type: Array, default: () => [] },
   },
+  methods: {
+    money,
+  },
   computed: {
     footerRowVals() {
-      if (!this.data?.length) return { sum: [] };
+      let data: any = this.data;
+      if (!data?.length) return { sum: [] };
       let actived = false;
-      const sumArray: any = Array(this.data[0].length).fill(null);
-      for (const row of this.data) {
+      const sumArray: any = Array(data[0].length).fill(null);
+      for (const row of data) {
         for (const index in row) {
           const val = row[index];
           if (typeof val != "object") {

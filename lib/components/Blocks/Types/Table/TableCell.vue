@@ -31,6 +31,8 @@
   </td>
 </template>
 <script lang="ts">
+import { money } from "../../../../common/functions";
+
 export default {
   name: "TableCell",
   props: {
@@ -38,6 +40,7 @@ export default {
     showAll: { type: Function, default: () => {} },
   },
   methods: {
+    money,
     clickButton(td: any) {
       this.$emit("callEvent", { click: td.click, args: td.args });
     },

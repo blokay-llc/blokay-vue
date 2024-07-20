@@ -13,7 +13,7 @@
 import ShowError from "./ShowError.vue";
 export default {
   props: {
-    error: Object,
+    error: { type: Object, default: () => {} },
   },
   components: {
     ShowError,
