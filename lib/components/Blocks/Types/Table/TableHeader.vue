@@ -263,31 +263,9 @@ export default {
     Modal,
   },
   methods: {
-    generateCSV() {
-      const rows = this.FileExportContent;
-      let csvContent = "";
-      rows.forEach((rowArray) => {
-        const row = rowArray.join(",");
-        csvContent += row + "\r\n";
-      });
-      download(csvContent, `${encodeURIComponent(this.blockName)}.csv`);
-    },
     clickFilter() {
       let ref: any = this.$refs.modalFilter;
       ref.show();
-    },
-  },
-  computed: {
-    FileExportContent() {
-      const dataTable = this.data.data.map((row: any) => {
-        return row.map((col: any) => {
-          if (typeof col == "object") {
-            return col.text || "";
-          }
-          return col;
-        });
-      });
-      return [this.data.header, ...dataTable];
     },
   },
 };
