@@ -15,18 +15,15 @@
     </div>
 
     <Modal size="lg" position="center" ref="modalRef">
-      <ErrorDecide :error="data" />
+      <ErrorDecide :error="props.data" />
     </Modal>
   </div>
 </template>
-<script lang="ts">
+<script lang="ts" setup>
 import ErrorDecide from "./ErrorDecide.vue";
-export default {
-  props: {
-    data: Object,
-  },
-  components: {
-    ErrorDecide,
-  },
-};
+
+// Props
+const props = defineProps({
+  data: Object,
+});
 </script>
