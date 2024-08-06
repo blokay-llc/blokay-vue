@@ -74,7 +74,7 @@ export default {
       type: String,
       default: "",
     },
-    endpoint: {
+    path: {
       type: String,
       default: "brain/uploadAsset",
     },
@@ -98,13 +98,17 @@ export default {
       type: String,
       default: "",
     },
+    endpoint: {
+      type: String,
+      default: null,
+    },
   },
   data() {
     return {
       loading: false,
       prev: "",
       id: (Math.random() + 1).toString(36).substring(7),
-      api: useApi("https://app.blokay.com/api/", {
+      api: useApi(this.endpoint, {
         getJwtToken: () => this.jwt,
       }),
     };
@@ -143,7 +147,7 @@ export default {
         formData.append("file", list[0]);
 
         return this.api
-          .sendFile(this.endpoint, formData)
+          .sendFile(this.path, formData)
           .then((result) => {
             this.onDone && this.onDone(result);
             if (result.data.Resource) {

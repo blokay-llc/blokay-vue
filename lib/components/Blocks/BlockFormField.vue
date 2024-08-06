@@ -37,6 +37,7 @@
       setForm({ ...form, [row.name]: val.url });
     }"
     :jwt="jwt"
+    :endpoint="endpoint"
   />
   <Input
     v-else
@@ -80,6 +81,10 @@ export default {
     jwt: {
       type: String,
       required: true,
+    },
+    endpoint: {
+      type: String,
+      default: null,
     },
   },
   components: {

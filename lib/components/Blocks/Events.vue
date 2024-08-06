@@ -67,8 +67,8 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import BlockEvent from "./Block.vue";
-import Modal from "../DS/Modal.vue";
-import Button from "../DS/Form/Button.vue";
+
+import { Modal, Button } from "../DS/Index";
 
 export default defineComponent({
   name: "EventsHandler",
@@ -111,6 +111,7 @@ export default defineComponent({
     openBlock({ blockId, blockKey, form }: any) {
       let modalRef: any = this.$refs.modalRef;
       this.subBlock = { blockId, blockKey, form };
+      console.log(modalRef, this.subBlock);
       modalRef.show();
     },
     setHasChanges() {

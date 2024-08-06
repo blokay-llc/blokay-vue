@@ -18,6 +18,7 @@
           :errors="errors"
           @execBlock="execBlock"
           :jwt="jwt"
+          :endpoint="endpoint"
         />
 
         <BlockResponse
@@ -95,6 +96,10 @@ export default {
         };
       },
     },
+    endpoint: {
+      type: String,
+      default: null,
+    },
   },
   components: {
     BlockForm,
@@ -109,7 +114,7 @@ export default {
       errors: {},
       exception: null,
       autoexecuted: false,
-      api: useApi("https://app.blokay.com/api/", {
+      api: useApi(this.endpoint, {
         getJwtToken: () => this.jwt,
       }),
     };

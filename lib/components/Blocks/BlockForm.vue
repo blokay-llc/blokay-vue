@@ -20,6 +20,7 @@
           :errors="errors"
           :setForm="setForm"
           :jwt="jwt"
+          :endpoint="endpoint"
         />
       </div>
     </div>
@@ -39,7 +40,7 @@ import BlockField from "./BlockFormField.vue";
 import Icon from "../DS/Icon.vue";
 import Button from "../DS/Form/Button.vue";
 
-const emit = defineEmits(['execBlock'])
+const emit = defineEmits(["execBlock"]);
 
 const props = defineProps({
   onBack: {
@@ -66,10 +67,13 @@ const props = defineProps({
     type: String,
     required: true,
   },
-})
+  endpoint: {
+    type: String,
+    default: null,
+  },
+});
 
 function execBlock() {
-  emit('execBlock', props.block)
+  emit("execBlock", props.block);
 }
-
 </script>

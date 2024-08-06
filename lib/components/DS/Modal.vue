@@ -60,6 +60,7 @@
 </template>
 
 <script lang="ts">
+import Icon from "./Icon.vue";
 export default {
   name: "Modal",
   props: {
@@ -76,6 +77,9 @@ export default {
       showing: false,
       error: null,
     };
+  },
+  components: {
+    Icon,
   },
   mounted() {
     const escFunction = (event: any) => {
@@ -118,12 +122,12 @@ export default {
       let app = document.getElementsByClassName("page-app")[0];
       if (a) {
         document.body.classList.add("no-scroll");
-        app.classList.add("no-scroll");
+        app && app.classList.add("no-scroll");
         root.classList.add("no-scroll");
       } else {
         document.body.classList.remove("no-scroll");
         root.classList.remove("no-scroll");
-        app.classList.remove("no-scroll");
+        app && app.classList.remove("no-scroll");
       }
     },
   },
