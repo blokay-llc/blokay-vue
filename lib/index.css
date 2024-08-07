@@ -311,3 +311,17 @@ input[type="number"]::-webkit-outer-spin-button {
 .bl-values-label {
   @apply bl-font-light bl-text-sm;
 }
+/* BL Views  */
+
+.bl-view-title {
+  @apply bl-mb-4 bl-pb-4 bl-border-b bl-border-neutral-300;
+}
+.bl-view-title h2 {
+  @apply bl-text-2xl;
+}
+.bl-view-block {
+  @apply dark:bl-border-white/10 bl-border-neutral-300 bl-border bl-rounded-xl bl-overflow-y-auto bl-max-h-full bl-h-full bl-flex bl-justify-center dark:bl-bg-transparent;
+}
+.bl-view-grid {
+  @apply bl-flex bl-flex-col lg:bl-grid bl-gap-4;
+}

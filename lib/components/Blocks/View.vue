@@ -1,8 +1,10 @@
 <template>
   <div v-if="view">
-    <h2 class="bl-text-2xl">{{ view.name }}</h2>
+    <div class="bl-view-title">
+      <h2>{{ view.name }}</h2>
+    </div>
     <div
-      class="bl-grid bl-gap-2"
+      class="bl-view-grid"
       style="grid-template-columns: repeat(24, minmax(0, 1fr))"
     >
       <div
@@ -18,7 +20,7 @@
       >
         <Block
           v-if="vItem.type == 'block'"
-          class="dark:bl-border-white/10 bl-border-neutral-300 bl-border bl-rounded-xl bl-overflow-y-auto bl-max-h-full bl-h-full bl-flex bl-justify-center bl-bg-neutral-100 dark:bl-bg-transparent"
+          class="bl-view-block"
           :blockId="vItem.blockId"
           :defaultForm="{}"
           :endpoint="props.endpoint"
@@ -26,7 +28,7 @@
         />
         <Button
           :text="vItem.options.label"
-          v-if="vItem.type == 'button'"
+          v-else-if="vItem.type == 'button'"
           @click="
             () => {
               callEvent({
@@ -40,10 +42,11 @@
           size="md"
         />
 
-        <!-- <div v-if="vItem.type == 'button'">
-      <Image v-if="vItem.type == 'image'" :options="vItem.options" />
+        <img v-else-if="vItem.type == 'image'" :src="vItem.options.src" />
+        <p v-else-if="vItem.type == 'text'">
+          {{ vItem.options.text }}
+        </p>
 
-      <Text v-if="vItem.type == 'text'" :options="vItem.options" /> -->
         <slot></slot>
       </div>
     </div>
