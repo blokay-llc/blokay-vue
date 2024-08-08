@@ -1,9 +1,9 @@
 <template>
   <View
-    resource="clientes-riesgos"
+    resource="cuentas-netflix"
     endpoint="http://localhost:8082/api/"
-    jwt="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJidXNpbmVzc0lkIjo0LCJkYXRhIjp7ImlkIjoyNCwiYnVzaW5lc3NJZCI6NCwibmFtZSI6Ikp1YW4gRGF2aWQgUmVzdHJlcG8iLCJpbWFnZSI6bnVsbCwiZW1haWwiOiJqdWFuLnJlc3RyZXBvQGJlbW92aWwubmV0Iiwicm9sIjoiYWRtaW4iLCJleHRyYTEiOiIxIiwiZXh0cmEyIjpudWxsLCJleHRyYTMiOm51bGx9LCJpYXQiOjE3MjI5ODQ0NzEsImV4cCI6MTcyMjk4ODA3MX0.RIZKKAri5IDcUACxQCYONVqn9WrOoSDGeKO_0MTicjs"
-    workspace="4"
+    jwt="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJidXNpbmVzc0lkIjoyLCJkYXRhIjp7ImlkIjoxLCJidXNpbmVzc0lkIjoyLCJuYW1lIjoiRGF2aWQgUiIsImltYWdlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvQUNnOG9jSUxUUGdlOUt3cmdnRExPOElKeWVfeDNKd2FCMWk0NE9uWjVrc2lKa2hUejVuTE04OD1zOTYtYyIsImVtYWlsIjoiZGF2aWQuckBnbWFpbC5jb20iLCJyb2wiOiJhZG1pbiIsImV4dHJhMSI6bnVsbCwiZXh0cmEyIjpudWxsLCJleHRyYTMiOm51bGx9LCJpYXQiOjE3MjMwNzkzOTMsImV4cCI6MTcyMzA4Mjk5M30.dqgdNce0mu_MWY1Qh84JXJIPuilZE8aU8fS_pXA6wbM"
+    workspace="2"
   />
 </template>
 <script lang="ts" setup>
