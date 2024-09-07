@@ -121,6 +121,7 @@ export default {
   },
   beforeCreate: function () {
     let options: any = this.$options;
+    console.log(options, "a");
     options.components.BlockResponse = BlockResponse;
   },
   methods: {
